@@ -1,0 +1,34 @@
+# Vhost Mapper Next Gen !
+# ==============================================================================
+php:
+  image: lephare/php:5.6
+  volumes:
+    - /home/crea/www:/mapper
+  dns:
+    - 192.168.1.11
+
+vhost-mapper:
+  build: vhost-mapper
+  command: /usr/sbin/apache2ctl -D FOREGROUND
+  volumes:
+    - ./vhost-mapper/sites-available:/etc/apache2/sites-enabled
+    - ./vhost-mapper/ssl:/etc/apache2/ssl
+    - ./vhost-mapper/index.html:/var/www/html/index.html
+  volumes_from:
+    - php
+  dns:
+    - 192.168.1.11
+  links:
+    - php
+  environment:
+    VIRTUAL_HOST: mapper.sandbox
+
+
+config: 
+  image: francescou/docker-compose-ui
+  volumes: 
+    - /etc/localtime:/etc/localtime:ro
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /home/crea/www:/opt/docker-compose-projects:ro
+  environment: 
+    - VIRTUAL_HOST=config.sandbox
