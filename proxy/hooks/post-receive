@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+CWD=$(dirname $0)/..
+
+if [ -f $(pwd)/HEAD ]; then
+  CWD=$(dirname $0)/../..
+fi
+
+cd $CWD;
+
+CONFIG=${CONFIG:-docker-compose.yml}
+if [ ! -f $CONFIG ];  then
+  echo ""
+  echo "warning: '$CONFIG' does not exist ! Using dist file instead ..."
+  echo ""
+  CONFIG=docker-compose.yml.dist
+fi
+
+echo ""
+echo "====> Pulling latest images"
+echo ""
+docker-compose -f $CONFIG pull
+
+echo ""
+echo "====> Rebuilding images"
+echo ""
+docker-compose -f $CONFIG build
+
+echo ""
+echo "====> Redeploying"
+echo ""
+docker-compose -f $CONFIG up -d
+
+echo ""
+echo "====> Check status"
+echo ""
+docker-compose -f $CONFIG ps
