@@ -1,0 +1,17 @@
+adminer:
+    volumes:
+       - ./conf/adminer/theme.css:/data/http/adminer.css:ro
+    environment:
+        - VIRTUAL_HOST=adminer.docker,adminer.nla.lph
+
+mysql:
+    ports:
+      - '3306:3306'
+
+pgsql:
+    ports:
+      - '5432:5432'
+
+maildev:
+    environment:
+        - VIRTUAL_HOST=maildev.docker,maildev.nla.lph
