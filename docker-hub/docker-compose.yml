@@ -1,0 +1,44 @@
+proxy:
+    image: jwilder/nginx-proxy
+    volumes:
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+        - ./conf/ssl/certs:/etc/nginx/certs:ro
+        - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
+    ports:
+        - 80:80
+        - 443:443
+
+pgsql:
+    image: postgres
+    environment:
+        - POSTGRES_PASSWORD=root
+
+mysql:
+    image: mysql:5.5
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+
+# Adminer work for mysql AND postgresql database
+adminer:
+    image: maxexcloo/adminer
+    links:
+        - pgsql
+        - mysql
+    environment:
+        - VIRTUAL_HOST=adminer.docker
+
+# Send and visualize mails
+maildev:
+    image: djfarrelly/maildev
+    ports:
+        - 1025:25
+    environment:
+        - VIRTUAL_HOST=maildev.docker
+
+# Rotate logs for containers to prevent filling disk with logs
+logrotate:
+    image: lephare/logrotate
+    volumes:
+        - /var/lib/docker/containers:/var/lib/docker/containers:rw
+    environment:
+        - LOGROTATE_MAX_SIZE=2M
