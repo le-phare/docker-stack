@@ -25,3 +25,11 @@ maildev:
 
 logrotate:
     restart: always
+
+blackfire:
+    restart: always
+    environment:
+        BLACKFIRE_CLIENT_ID: f0868984-c44c-49fc-9319-949337599f2b
+        BLACKFIRE_CLIENT_TOKEN: b5836ca5ea1ea557b52d66809c3cdcc73c247497ce46a7d39adebea1c248f45a
+        BLACKFIRE_SERVER_ID: 26fd91bc-9735-44c1-835d-39810ae4066a
+        BLACKFIRE_SERVER_TOKEN: a91675750d33cf26e889b747e86063db9fb1b1dd3a73835c1e4a818f62d62f94
