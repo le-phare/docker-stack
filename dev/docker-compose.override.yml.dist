@@ -1,0 +1,27 @@
+proxy:
+    restart: always
+
+pgsql:
+    restart: always
+    ports:
+        - '5432:5432'
+
+mysql:
+    restart: always
+    ports:
+        - '3306:3306'
+
+adminer:
+    restart: always
+    volumes:
+        - ./conf/adminer/theme.css:/data/http/adminer.css:ro
+    environment:
+        VIRTUAL_HOST: adminer.docker,adminer.nla.lph
+
+maildev:
+    restart: always
+    environment:
+        VIRTUAL_HOST: maildev.docker,maildev.nla.lph
+
+logrotate:
+    restart: always
