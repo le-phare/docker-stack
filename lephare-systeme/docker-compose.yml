@@ -1,0 +1,50 @@
+nginx:
+    image: nginx
+    ports:
+        - 80:80
+        - 443:443
+    volumes:
+        - /etc/nginx/conf.d
+        - /etc/nginx/vhost.d
+        - /usr/share/nginx/html
+        - /etc/nginx/certs:/etc/nginx/certs:ro
+
+nginx-gen:
+    image: jwilder/docker-gen
+    volumes_from:
+        - nginx
+    volumes:
+        - /etc/docker-gen/templates:/etc/docker-gen/templates:ro
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+    command: -notify-sighup lepharesysteme_nginx_1 -watch -only-exposed -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+
+letsencrypt:
+    image:  jrcs/letsencrypt-nginx-proxy-companion
+    volumes_from:
+        - nginx
+    volumes:
+        - /etc/nginx/certs:/etc/nginx/certs:rw
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+        NGINX_DOCKER_GEN_CONTAINER: lepharesysteme_nginx-gen_1
+
+dl:
+    image: quay.io/aegypius/statik
+    environment:
+        VIRTUAL_HOST: dl.lephare-systeme.com
+        LETSENCRYPT_HOST: dl.lephare-systeme.com
+        LETSENCRYPT_EMAIL: systeme@lephare.com
+
+toran-proxy:
+    image: cedvan/toran-proxy:1.1.7-1
+    volumes:
+        - /opt/toran-proxy:/data/toran-proxy
+        - /var/toran-proxy/repo:/var/www/web/repo
+    environment:
+        VIRTUAL_HOST: toran.lephare-systeme.com
+        LETSENCRYPT_HOST: toran.lephare-systeme.com
+        LETSENCRYPT_EMAIL: systeme@lephare.com
+        TORAN_TOKEN_GITHUB: 6110bd46666c59d6994294b87cd7a33ce6ad4647
+        TORAN_HTTPS: 'false'
+        TORAN_CRON_TIMER: daily
+        TORAN_HOST: toran.lephare-systeme.com
