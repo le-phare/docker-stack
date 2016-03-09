@@ -18,7 +18,7 @@ mysql:
     environment:
         MYSQL_ROOT_PASSWORD: root
     volumes:
-        - ./conf/mysql/conf.d/synfony.cnf:/etc/mysql/conf.d/synfony.cnf
+        - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
 
 # Adminer work for mysql AND postgresql database
 adminer:
