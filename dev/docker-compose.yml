@@ -1,25 +1,26 @@
 proxy:
+    restart: always
     image: jwilder/nginx-proxy
     volumes:
         - /var/run/docker.sock:/tmp/docker.sock:ro
         - ./conf/ssl/certs:/etc/nginx/certs:ro
         - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
-    ports:
-        - 80:80
-        - 443:443
 
 pgsql:
+    restart: always
     image: postgres:9.4
     environment:
         POSTGRES_PASSWORD: root
 
 mysql:
+    restart: always
     image: mysql:5.5
     environment:
         MYSQL_ROOT_PASSWORD: root
 
 # Adminer work for mysql AND postgresql database
 adminer:
+    restart: always
     image: maxexcloo/adminer
     links:
         - pgsql
@@ -29,6 +30,7 @@ adminer:
 
 # Send and visualize mails
 maildev:
+    restart: always
     image: djfarrelly/maildev
     ports:
         - 80
@@ -39,6 +41,7 @@ maildev:
 
 # Rotate logs for containers to prevent filling disk with logs
 logrotate:
+    restart: always
     image: lephare/logrotate
     volumes:
         - /var/lib/docker/containers:/var/lib/docker/containers:rw
@@ -46,4 +49,5 @@ logrotate:
         LOGROTATE_MAX_SIZE: 2M
 
 blackfire:
+    restart: always
     image: blackfire/blackfire
