@@ -20,7 +20,7 @@ mysql:
 
 # Adminer work for mysql AND postgresql database
 adminer:
-    restart: always
+    restart: unless-stopped
     image: maxexcloo/adminer
     links:
         - pgsql
@@ -30,7 +30,7 @@ adminer:
 
 # Send and visualize mails
 maildev:
-    restart: always
+    restart: unless-stopped
     image: djfarrelly/maildev
     ports:
         - 80
@@ -41,7 +41,7 @@ maildev:
 
 # Rotate logs for containers to prevent filling disk with logs
 logrotate:
-    restart: always
+    restart: unless-stopped
     image: lephare/logrotate
     volumes:
         - /var/lib/docker/containers:/var/lib/docker/containers:rw
@@ -49,5 +49,5 @@ logrotate:
         LOGROTATE_MAX_SIZE: 2M
 
 blackfire:
-    restart: always
+    restart: unless-stopped
     image: blackfire/blackfire
