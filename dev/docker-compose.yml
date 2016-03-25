@@ -1,5 +1,5 @@
 proxy:
-    restart: always
+    restart: unless-stopped
     image: jwilder/nginx-proxy
     volumes:
         - /var/run/docker.sock:/tmp/docker.sock:ro
@@ -7,13 +7,13 @@ proxy:
         - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
 
 pgsql:
-    restart: always
+    restart: unless-stopped
     image: postgres:9.4
     environment:
         POSTGRES_PASSWORD: root
 
 mysql:
-    restart: always
+    restart: unless-stopped
     image: mysql:5.5
     environment:
         MYSQL_ROOT_PASSWORD: root
