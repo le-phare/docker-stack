@@ -1,5 +1,6 @@
 nginx:
     image: nginx
+    restart: unless-stopped
     ports:
         - 80:80
         - 443:443
@@ -11,6 +12,7 @@ nginx:
 
 nginx-gen:
     build: nginx-gen
+    restart: unless-stopped
     volumes_from:
         - nginx
     volumes:
@@ -19,6 +21,7 @@ nginx-gen:
 
 letsencrypt:
     image:  jrcs/letsencrypt-nginx-proxy-companion
+    restart: unless-stopped
     volumes_from:
         - nginx
     volumes:
@@ -29,6 +32,7 @@ letsencrypt:
 
 dl:
     image: quay.io/aegypius/statik
+    restart: unless-stopped
     environment:
         VIRTUAL_HOST: dl.lephare-systeme.com
         LETSENCRYPT_HOST: dl.lephare-systeme.com
@@ -36,6 +40,7 @@ dl:
 
 toran-proxy:
     image: cedvan/toran-proxy:1.1.7-1
+    restart: unless-stopped
     volumes:
         - toran-proxy-data:/data/toran-proxy
         - toran-proxy-repo:/var/www/web/repo
