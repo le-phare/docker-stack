@@ -23,11 +23,3 @@ vhost-mapper:
     environment:
         VIRTUAL_HOST: mapper.sandbox
 
-config:
-    image: quay.io/aegypius/docker-compose-ui
-    volumes:
-        - /etc/localtime:/etc/localtime:ro
-        - /var/run/docker.sock:/var/run/docker.sock
-        - /home/crea/www:/opt/docker-compose-projects:ro
-    environment:
-        VIRTUAL_HOST: config.sandbox
