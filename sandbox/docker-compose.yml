@@ -1,6 +1,7 @@
 # Vhost Mapper Next Gen !
 # ==============================================================================
 php:
+    restart: unless-stopped
     image: lephare/php:5.6
     volumes:
         - /home/crea/www:/mapper
@@ -8,6 +9,7 @@ php:
         - 192.168.1.11
 
 vhost-mapper:
+    restart: unless-stopped
     build: vhost-mapper
     command: /usr/sbin/apache2ctl -D FOREGROUND
     volumes:
