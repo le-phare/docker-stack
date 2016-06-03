@@ -37,19 +37,3 @@ dl:
         VIRTUAL_HOST: dl.lephare-systeme.com
         LETSENCRYPT_HOST: dl.lephare-systeme.com
         LETSENCRYPT_EMAIL: systeme@lephare.com
-
-toran-proxy:
-    image: cedvan/toran-proxy:1.1.7-1
-    restart: unless-stopped
-    volumes:
-        - toran-proxy-data:/data/toran-proxy
-        - toran-proxy-repo:/var/www/web/repo
-        - ssh-keys:/root/.ssh:ro
-    environment:
-        VIRTUAL_HOST: toran.lephare-systeme.com
-        LETSENCRYPT_HOST: toran.lephare-systeme.com
-        LETSENCRYPT_EMAIL: systeme@lephare.com
-        TORAN_TOKEN_GITHUB: 6110bd46666c59d6994294b87cd7a33ce6ad4647
-        TORAN_HTTPS: 'false'
-        TORAN_CRON_TIMER: daily
-        TORAN_HOST: toran.lephare-systeme.com
