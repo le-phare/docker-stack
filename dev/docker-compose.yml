@@ -1,55 +1,78 @@
-proxy:
-    restart: unless-stopped
-    image: jwilder/nginx-proxy
-    volumes:
-        - /var/run/docker.sock:/tmp/docker.sock:ro
-        - ./conf/ssl/certs:/etc/nginx/certs:ro
-        - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
+version: '2'
 
-pgsql:
-    restart: unless-stopped
-    image: postgres:9.4
-    environment:
-        POSTGRES_PASSWORD: root
+networks:
+    proxy:
+        driver: bridge
+    maildev:
+        driver: bridge
+    pgsql_94:
+        driver: bridge
+    pgsql_95:
+        driver: bridge
+    mysql_55:
+        driver: bridge
+    mysql_57:
+        driver: bridge
 
-mysql:
-    restart: unless-stopped
-    image: mysql:5.5
-    environment:
-        MYSQL_ROOT_PASSWORD: root
-    volumes:
-        - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+services:
+    proxy:
+        restart: unless-stopped
+        image: jwilder/nginx-proxy
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - ./conf/ssl/certs:/etc/nginx/certs:ro
+            - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
+        networks:
+            - proxy
+        ports:
+            - '80:80'
+            - '443:443'
 
-# Adminer work for mysql AND postgresql database
-adminer:
-    restart: unless-stopped
-    image: maxexcloo/adminer
-    links:
-        - pgsql
-        - mysql
-    environment:
-        VIRTUAL_HOST: adminer.docker
+    adminer:
+        image: maxexcloo/adminer
+        environment:
+            VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX
+        networks:
+            - proxy
+            - pgsql_94
+            - pgsql_95
+            - mysql_55
+            - mysql_57
 
-# Send and visualize mails
-maildev:
-    restart: unless-stopped
-    image: djfarrelly/maildev
-    ports:
-        - 80
-        - 1025:25
-    environment:
-        VIRTUAL_HOST: maildev.docker
-        VIRTUAL_PORT: 80
+    pgsql_94:
+        image: postgres:9.4
+        networks:
+            - pgsql_94
 
-# Rotate logs for containers to prevent filling disk with logs
-logrotate:
-    restart: unless-stopped
-    image: lephare/logrotate
-    volumes:
-        - /var/lib/docker/containers:/var/lib/docker/containers:rw
-    environment:
-        LOGROTATE_MAX_SIZE: 2M
+    pgsql_95:
+        image: postgres:9.5
+        networks:
+            - pgsql_95
 
-blackfire:
-    restart: unless-stopped
-    image: blackfire/blackfire
+    mysql_55:
+        image: mysql:5.5
+        networks:
+            - mysql_55
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+
+    mysql_57:
+        image: mysql:5.7
+        networks:
+            - mysql_57
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+
+    maildev:
+        restart: unless-stopped
+        image: djfarrelly/maildev
+        networks:
+            - proxy
+            - maildev
+        environment:
+            VIRTUAL_HOST: maildev.docker, maildev.$DOCKER_HOST_SUFFIX
+        command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
