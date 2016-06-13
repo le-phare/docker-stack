@@ -1,19 +1,5 @@
 version: '2'
 
-networks:
-    proxy:
-        driver: bridge
-    maildev:
-        driver: bridge
-    pgsql_94:
-        driver: bridge
-    pgsql_95:
-        driver: bridge
-    mysql_55:
-        driver: bridge
-    mysql_57:
-        driver: bridge
-
 services:
     proxy:
         restart: unless-stopped
@@ -43,11 +29,19 @@ services:
         image: postgres:9.4
         networks:
             - pgsql_94
+        volumes:
+            - pgsql_94_data:/var/lib/postgres/data
+        environment:
+            PGDATA: /var/lib/postgres/data
 
     pgsql_95:
         image: postgres:9.5
         networks:
             - pgsql_95
+        volumes:
+            - pgsql_95_data:/var/lib/postgres/data
+        environment:
+            PGDATA: /var/lib/postgres/data
 
     mysql_55:
         image: mysql:5.5
@@ -57,6 +51,7 @@ services:
             MYSQL_ROOT_PASSWORD: root
         volumes:
             - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+            - mysql_55_data:/var/lib/mysql
 
     mysql_57:
         image: mysql:5.7
@@ -66,6 +61,7 @@ services:
             MYSQL_ROOT_PASSWORD: root
         volumes:
             - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+            - mysql_57_data:/var/lib/mysql
 
     maildev:
         restart: unless-stopped
@@ -76,3 +72,34 @@ services:
         environment:
             VIRTUAL_HOST: maildev.docker, maildev.$DOCKER_HOST_SUFFIX
         command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
+
+    memcached:
+        restart: unless-stopped
+        image: memcached:1.4
+        networks:
+            - memcached
+networks:
+    proxy:
+        driver: bridge
+    maildev:
+        driver: bridge
+    pgsql_94:
+        driver: bridge
+    pgsql_95:
+        driver: bridge
+    mysql_55:
+        driver: bridge
+    mysql_57:
+        driver: bridge
+    memcached:
+        driver: bridge
+
+volumes:
+    mysql_57_data:
+        driver: local
+    mysql_55_data:
+        driver: local
+    pgsql_95_data:
+        driver: local
+    pgsql_94_data:
+        driver: local
