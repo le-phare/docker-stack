@@ -15,6 +15,7 @@ services:
             - '443:443'
 
     adminer:
+        restart: unless-stopped
         image: maxexcloo/adminer
         environment:
             VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX
@@ -26,6 +27,7 @@ services:
             - mysql_57
 
     pgsql_94:
+        restart: unless-stopped
         image: postgres:9.4
         networks:
             - pgsql_94
@@ -35,6 +37,7 @@ services:
             PGDATA: /var/lib/postgres/data
 
     pgsql_95:
+        restart: unless-stopped
         image: postgres:9.5
         networks:
             - pgsql_95
@@ -44,6 +47,7 @@ services:
             PGDATA: /var/lib/postgres/data
 
     mysql_55:
+        restart: unless-stopped
         image: mysql:5.5
         networks:
             - mysql_55
@@ -54,6 +58,7 @@ services:
             - mysql_55_data:/var/lib/mysql
 
     mysql_57:
+        restart: unless-stopped
         image: mysql:5.7
         networks:
             - mysql_57
@@ -78,6 +83,7 @@ services:
         image: memcached:1.4
         networks:
             - memcached
+
 networks:
     proxy:
         driver: bridge
