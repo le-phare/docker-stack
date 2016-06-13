@@ -89,6 +89,8 @@ networks:
         driver: bridge
     maildev:
         driver: bridge
+    memcached:
+        driver: bridge
     pgsql_94:
         driver: bridge
     pgsql_95:
@@ -96,8 +98,6 @@ networks:
     mysql_55:
         driver: bridge
     mysql_57:
-        driver: bridge
-    memcached:
         driver: bridge
 
 volumes:
