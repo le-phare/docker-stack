@@ -21,16 +21,14 @@ services:
             VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX
         networks:
             - proxy
-            - pgsql_94
-            - pgsql_95
-            - mysql_55
-            - mysql_57
+            - adminer
 
     pgsql_94:
         restart: unless-stopped
         image: postgres:9.4
         networks:
             - pgsql_94
+            - adminer
         volumes:
             - pgsql_94_data:/var/lib/postgres/data
         environment:
@@ -41,6 +39,7 @@ services:
         image: postgres:9.5
         networks:
             - pgsql_95
+            - adminer
         volumes:
             - pgsql_95_data:/var/lib/postgres/data
         environment:
@@ -51,6 +50,7 @@ services:
         image: mysql:5.5
         networks:
             - mysql_55
+            - adminer
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
@@ -62,6 +62,7 @@ services:
         image: mysql:5.7
         networks:
             - mysql_57
+            - adminer
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
@@ -88,6 +89,8 @@ networks:
     proxy:
         driver: bridge
     maildev:
+        driver: bridge
+    adminer:
         driver: bridge
     memcached:
         driver: bridge
