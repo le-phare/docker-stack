@@ -51,10 +51,42 @@ services:
     #         LETSENCRYPT_HOST: dl.lephare-systeme.com
     #         LETSENCRYPT_EMAIL: systeme@lephare.com
 
+    toran_web:
+        image: lephare/apache:2.4
+        networks:
+            - proxy
+            - toran
+        environment:
+            VIRTUAL_HOST: toran.lephare-systeme.com
+            LETSENCRYPT_HOST: toran.lephare-systeme.com
+            LETSENCRYPT_EMAIL: systeme@lephare.com
+            DOCUMENT_ROOT: /app/web
+            APACHE_LOG_PREFIX: toran-proxy
+        volumes_from:
+            - php
+        volumes:
+            - apache-logs:/var/log/apache2
+
+    php:
+        image: lephare/toran-proxy
+        volumes:
+            - /app/web
+            - toran-data:/data:rw
+        networks:
+            - toran
+        environment:
+            TORAN_TOKEN_GITHUB: 36ccc30e9e870bd65b80f161dc1b81389dd8b354
+
 networks:
     proxy:
+        driver: bridge
+    toran:
         driver: bridge
 
 volumes:
     ssl-certs:
+        driver: local
+    toran-data:
+        driver: local
+    apache-logs:
         driver: local
