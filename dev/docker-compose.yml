@@ -18,7 +18,7 @@ services:
 
     adminer:
         restart: unless-stopped
-        image: maxexcloo/adminer
+        image: clue/adminer
         environment:
             VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX
         networks:
