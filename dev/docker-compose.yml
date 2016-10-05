@@ -18,19 +18,18 @@ services:
 
     adminer:
         restart: unless-stopped
-        image: clue/adminer
+        image: dehy/adminer
         environment:
             VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX
         networks:
             - proxy
-            - adminer
+            - database
 
     pgsql_94:
         restart: unless-stopped
         image: postgres:9.4
         networks:
-            - pgsql_94
-            - adminer
+            - database
         volumes:
             - pgsql_94_data:/var/lib/postgres/data
         environment:
@@ -40,8 +39,7 @@ services:
         restart: unless-stopped
         image: postgres:9.5
         networks:
-            - pgsql_95
-            - adminer
+            - database
         volumes:
             - pgsql_95_data:/var/lib/postgres/data
         environment:
@@ -51,8 +49,7 @@ services:
         restart: unless-stopped
         image: mysql:5.5
         networks:
-            - mysql_55
-            - adminer
+            - database
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
@@ -63,8 +60,7 @@ services:
         restart: unless-stopped
         image: mysql:5.7
         networks:
-            - mysql_57
-            - adminer
+            - database
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
@@ -102,17 +98,9 @@ networks:
         driver: bridge
     maildev:
         driver: bridge
-    adminer:
+    database:
         driver: bridge
     memcached:
-        driver: bridge
-    pgsql_94:
-        driver: bridge
-    pgsql_95:
-        driver: bridge
-    mysql_55:
-        driver: bridge
-    mysql_57:
         driver: bridge
 
 volumes:
