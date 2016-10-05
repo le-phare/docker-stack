@@ -13,6 +13,8 @@ services:
         ports:
             - '80:80'
             - '443:443'
+        environment:
+            DEFAULT_HOST: dashboard.docker
 
     adminer:
         restart: unless-stopped
@@ -84,6 +86,16 @@ services:
         image: memcached:1.4
         networks:
             - memcached
+
+    dashboard:
+        image: lephare/dashboard-docker
+        networks:
+            - proxy
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        environment:
+            VIRTUAL_HOST: dashboard.docker, dashboard.$DOCKER_HOST_SUFFIX
+            DOCKER_HOST: unix:///tmp/docker.sock
 
 networks:
     proxy:
