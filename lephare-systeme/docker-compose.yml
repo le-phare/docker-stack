@@ -16,7 +16,6 @@ services:
             - /usr/share/nginx/html
             - ssl-certs:/etc/nginx/certs:ro
 
-
     nginx-gen:
         container_name: nginx-gen
         build: nginx-gen
@@ -85,8 +84,8 @@ networks:
 
 volumes:
     ssl-certs:
-        driver: local
+        external: true
     toran-data:
-        driver: local
+        external: true
     apache-logs:
-        driver: local
+        external: true
