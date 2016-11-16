@@ -92,6 +92,8 @@ services:
         environment:
             VIRTUAL_HOST: dashboard.docker, dashboard.$DOCKER_HOST_SUFFIX
             DOCKER_HOST: unix:///tmp/docker.sock
+            CERT_NAME: generic
+            HTTPS_METHOD: noredirect
 
 networks:
     proxy:
