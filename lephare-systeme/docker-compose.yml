@@ -53,8 +53,8 @@ services:
     toran_web:
         image: lephare/apache:2.4
         networks:
+            - default
             - proxy
-            - toran
         environment:
             VIRTUAL_HOST: toran.lephare-systeme.com
             LETSENCRYPT_HOST: toran.lephare-systeme.com
@@ -72,14 +72,13 @@ services:
             - /app/web
             - toran-data:/data:rw
         networks:
-            - toran
+            - default
         environment:
             TORAN_TOKEN_GITHUB: 36ccc30e9e870bd65b80f161dc1b81389dd8b354
+            TORAN_TOKEN_GITLAB: MK15ovCucGPbJj3s16F5
 
 networks:
     proxy:
-        driver: bridge
-    toran:
         driver: bridge
 
 volumes:
