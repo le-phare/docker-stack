@@ -18,52 +18,10 @@ services:
         restart: unless-stopped
         image: dehy/adminer
         environment:
-            VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX
+            VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX, *.adminer.$DOCKER_HOST_SUFFIX
         networks:
             - proxy
             - database
-
-    pgsql_94:
-        restart: unless-stopped
-        image: postgres:9.4
-        networks:
-            - database
-        volumes:
-            - pgsql_94_data:/var/lib/postgres/data
-        environment:
-            PGDATA: /var/lib/postgres/data
-
-    pgsql_95:
-        restart: unless-stopped
-        image: postgres:9.5
-        networks:
-            - database
-        volumes:
-            - pgsql_95_data:/var/lib/postgres/data
-        environment:
-            PGDATA: /var/lib/postgres/data
-
-    mysql_55:
-        restart: unless-stopped
-        image: mysql:5.5
-        networks:
-            - database
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-        volumes:
-            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
-            - mysql_55_data:/var/lib/mysql
-
-    mysql_57:
-        restart: unless-stopped
-        image: mysql:5.7
-        networks:
-            - database
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-        volumes:
-            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
-            - mysql_57_data:/var/lib/mysql
 
     maildev:
         restart: unless-stopped
@@ -90,13 +48,3 @@ networks:
         driver: bridge
     memcached:
         driver: bridge
-
-volumes:
-    mysql_57_data:
-        driver: local
-    mysql_55_data:
-        driver: local
-    pgsql_95_data:
-        driver: local
-    pgsql_94_data:
-        driver: local
