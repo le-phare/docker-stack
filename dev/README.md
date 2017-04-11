@@ -7,6 +7,7 @@ This repository contains the dev configuration for commons containers.
 	$ git clone git@bitbucket.org:lephare/docker-stack.git
 	$ cd docker-stack/dev
 	$ cp .env.dist .env
+	$ docker-compose up -d
 
 ## Choose yours databases
 
@@ -28,3 +29,14 @@ The repository currently support theses databases :
  - mysql 5.5
  - mysql 5.7
  - elasticsearch 5.3
+
+## Build the docs
+
+The documentation can be builded with the following step
+
+	$ cd docs
+	$ composer update
+
+Then restart the containers with
+
+	$ docker-compose up -d
