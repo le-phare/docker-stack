@@ -15,11 +15,11 @@ The default configuration include two databases containers : mysql-5.5 and postg
 
 The default configuration is
 
-	COMPOSE_FILE=docker-compose.yml:mysql.55.yml:pgsql.95.yml
+	COMPOSE_FILE=docker-compose.yml:mysql_55.yml:pgsql_95.yml
 
 If you don't use mysql but have multiple project running elastic-search you can use
 
-	COMPOSE_FILE=docker-compose.yml:pgsql.95.yml:elastic.53.yml
+	COMPOSE_FILE=docker-compose.yml:pgsql_95.yml:elastic_53.yml
 
 The repository currently support theses databases :
 
