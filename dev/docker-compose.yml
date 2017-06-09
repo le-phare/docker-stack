@@ -39,6 +39,17 @@ services:
         networks:
             - memcached
 
+    docs:
+        image: clue/sculpin
+        command: generate --watch --server
+        networks:
+            - proxy
+        volumes:
+            - ./docs:/data
+        environment:
+            VIRTUAL_HOST: docs.docker,docs.$DOCKER_HOST_SUFFIX
+            VIRTUAL_PORT: 8000
+
 networks:
     proxy:
         driver: bridge
