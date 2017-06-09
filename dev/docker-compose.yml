@@ -1,4 +1,4 @@
-version: '2'
+version: '3.2'
 
 services:
     proxy:
@@ -18,7 +18,7 @@ services:
         restart: unless-stopped
         image: dehy/adminer
         environment:
-            VIRTUAL_HOST: adminer.docker, adminer.$DOCKER_HOST_SUFFIX, *.adminer.$DOCKER_HOST_SUFFIX
+            VIRTUAL_HOST: adminer.${DOCKER_HOST_SUFFIX:-docker}, *.adminer.${DOCKER_HOST_SUFFIX:-docker}
         networks:
             - proxy
             - database
@@ -30,7 +30,7 @@ services:
             - proxy
             - maildev
         environment:
-            VIRTUAL_HOST: maildev.docker, maildev.$DOCKER_HOST_SUFFIX
+            VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-docker}
         command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
 
     memcached:
@@ -47,7 +47,7 @@ services:
         volumes:
             - ./docs:/data
         environment:
-            VIRTUAL_HOST: docs.docker,docs.$DOCKER_HOST_SUFFIX
+            VIRTUAL_HOST: docs.${DOCKER_HOST_SUFFIX:-docker}
             VIRTUAL_PORT: 8000
 
 networks:
