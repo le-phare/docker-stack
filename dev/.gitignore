@@ -2,3 +2,4 @@
 docs/vendor
 docs/composer.lock
 docs/source/components
+docs/output_dev/

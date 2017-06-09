@@ -9,7 +9,25 @@ This repository contains the dev configuration for commons containers.
 	$ cp .env.dist .env
 	$ docker-compose up -d
 
-## Choose yours databases
+You also need to set the DOCKER_HOST_SUFFIX env var in your shell
+
+    $ echo 'export DOCKER_HOST_SUFFIX="eri.lph"' >> ~/.bash_profile
+
+## The base stack
+
+The base stack contains the minimal configuration related to web development.
+
+ - nginx-proxy
+ - adminer
+ - maildev
+ - memcached
+ - docs (see further)
+
+## The documentation container
+
+The base stack contains a documentation container accessible from http://docs.<DOCKER_HOST_SUFFIX>
+
+## Compose your stack
 
 The default configuration include two databases containers : mysql-5.5 and postgresql-9.6. You can change the loaded containers by changing the `COMPOSE_FILE` environment variable in the `.env` file.
 
