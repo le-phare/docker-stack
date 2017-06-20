@@ -50,6 +50,12 @@ services:
             VIRTUAL_HOST: docs.${DOCKER_HOST_SUFFIX:-docker}
             VIRTUAL_PORT: 8000
 
+    watchtower:
+        image: v2tec/watchtower
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        command: --interval 30
+
 networks:
     proxy:
         driver: bridge
