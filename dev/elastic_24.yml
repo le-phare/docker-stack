@@ -1,0 +1,7 @@
+version: '3.2'
+
+services:
+    elastic_24:
+        image: elasticsearch:2.4
+        networks:
+            - database
