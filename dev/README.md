@@ -47,6 +47,18 @@ The repository currently support theses databases :
  - mysql 5.5
  - mysql 5.7
  - elasticsearch 5.3
+ - blackfire
+
+### How to use blackfire ?
+
+Add `blackfire.yml` to your COMPOSE_FILE env vars in `.env`. Then go to `https://blackfire.io/account` to get your credentials. Put then in your `env` like this :
+
+```
+BLACKFIRE_CLIENT_ID=<blackfire_credentials>
+BLACKFIRE_CLIENT_TOKEN=<blackfire_credentials>
+BLACKFIRE_SERVER_ID=<blackfire_credentials>
+BLACKFIRE_SERVER_TOKEN=<blackfire_credentials>
+```
 
 ## Build the docs
 
