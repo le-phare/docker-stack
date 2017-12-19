@@ -1,0 +1,18 @@
+version: '3.2'
+
+services:
+    blackfire:
+        restart: unless-stopped
+        image: blackfire/blackfire
+        container_name: blackfire
+        networks:
+            - database
+        environment:
+            - BLACKFIRE_SERVER_ID
+            - BLACKFIRE_SERVER_TOKEN
+            - BLACKFIRE_CLIENT_ID
+            - BLACKFIRE_CLIENT_TOKEN
+
+volumes:
+    pgsql_96_data:
+        driver: local
