@@ -1,0 +1,40 @@
+# Official docker image.
+image: docker:latest
+
+services:
+    - docker:dind
+
+# Template task
+.build-image: &build-image
+    stage: build
+    before_script:
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    script:
+        - docker build --pull -t "${DOCKER_IMAGE:-$CI_REGISTRY_IMAGE}:${DOCKER_TAG:-latest}" .
+        - docker push "${DOCKER_IMAGE:-$CI_REGISTRY_IMAGE}:${DOCKER_TAG:-latest}"
+    tags:
+        - docker
+        - private
+
+.mkcert-for-nginx-proxy: &mkcert-for-nginx-proxy-build
+    <<: *build-image
+    before_script:
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+        - cd dev/build/mkcert-for-nginx-proxy
+        - echo "$ROOT_CA" > rootCA.pem
+        - echo "$ROOT_CA_KEY" > rootCA-key.pem
+    variables:
+        DOCKER_IMAGE: registry.gitlab.com/lephare/docker-stack/mkcert-for-nginx-proxy
+
+mkcert-for-nginx-proxy-latest:
+    <<: *mkcert-for-nginx-proxy-build
+    only:
+        - master
+
+mkcert-for-nginx-proxy:
+    <<: *mkcert-for-nginx-proxy-build
+    variables:
+        DOCKER_IMAGE: registry.gitlab.com/lephare/docker-stack/mkcert-for-nginx-proxy
+        DOCKER_TAG: $CI_COMMIT_REF_SLUG
+    except:
+       - master

@@ -1,2 +1,2 @@
 **/docker-compose.override.yml
-dev/dashboard/vendor
+.env
