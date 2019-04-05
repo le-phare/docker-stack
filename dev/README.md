@@ -4,28 +4,79 @@ This repository contains the dev configuration for commons containers.
 
 ## Install
 
-	$ git clone git@bitbucket.org:lephare/docker-stack.git
-	$ cd docker-stack/dev
-	$ cp .env.dist .env
-	$ docker-compose up -d
+```shell
+git clone git@gitlab.com:lephare/docker-stack.git
+cd docker-stack/dev
+```
 
+### Configuration
 You also need to set the DOCKER_HOST_SUFFIX env var in your shell
 
-    $ echo 'export DOCKER_HOST_SUFFIX="eri.lph"' >> ~/.bash_profile
+	echo 'export DOCKER_HOST_SUFFIX="eri.lph"' >> ~/.bash_profile
+
+```shell
+cp .env.dist .env
+docker-compose up -d
+```
+
+Gitlab Registry :
+
+1. Go to (https://gitlab.com/profile/personal_access_tokens)
+2. Enter "Docker stack" in the **Name** field and check **read_registry**
+3. Copy the generated token
+4. In a terminal:
+
+```shell
+docker login registry.gitlab.com
+Username: token # Litteraly
+Password: # Enter the generated token copied earlier
+```
+
+The message `Login successed` should appear.
+
+#### For Ubuntu / Debian:
+
+```shell
+docker-compose up
+sudo update-ca-certificates
+```
+
+#### For Arch / Manjaro:
+
+```shell
+echo 'CA_ROOT=/etc/ca-certificates/trust-source/anchors' >> .env
+docker-compose up
+sudo trust extract-compat
+```
+
+#### For Fedora / RHEL / CentOS:
+
+```shell
+echo 'CA_ROOT=/etc/pki/ca-trust/source/anchors' >> .env
+docker-compose up
+sudo update-ca-trust extract
+```
+
+##### For Gentoo:
+
+```shell
+echo 'CA_ROOT=/etc/ssl/certs' >> .env
+docker-compose up
+sudo update-ca-certificates
+```
+
+Restart your browsers !
 
 ## The base stack
 
 The base stack contains the minimal configuration related to web development.
 
  - nginx-proxy
+ - mkcert-plugin-for-nginx
  - adminer
  - maildev
  - memcached
- - docs (see further)
-
-## The documentation container
-
-The base stack contains a documentation container accessible from http://docs.<DOCKER_HOST_SUFFIX>
+ - watchtower
 
 ## Compose your stack
 
@@ -59,14 +110,3 @@ BLACKFIRE_CLIENT_TOKEN=<blackfire_credentials>
 BLACKFIRE_SERVER_ID=<blackfire_credentials>
 BLACKFIRE_SERVER_TOKEN=<blackfire_credentials>
 ```
-
-## Build the docs
-
-The documentation can be builded with the following step
-
-	$ cd docs
-	$ composer update
-
-Then restart the containers with
-
-	$ docker-compose up -d

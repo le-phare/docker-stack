@@ -6,19 +6,32 @@ services:
         image: jwilder/nginx-proxy
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
-            - ./conf/ssl/certs:/etc/nginx/certs:ro
+            - ssl-certs:/etc/nginx/certs:ro
             - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
         networks:
             - proxy
+        labels:
+            - com.github.aegypius.mkcert-for-nginx-proxy.nginx_proxy
         ports:
             - '80:80'
             - '443:443'
+
+    mkcert:
+        container_name: mkcert-for-nginx-proxy
+        image: registry.gitlab.com/lephare/docker-stack/mkcert-for-nginx-proxy
+        restart: unless-stopped
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ssl-certs:/app/certs:rw
+            - ~/.mozilla/firefox:/root/.mozilla/firefox
+            - ~/.pki/nssdb:/root/.pki/nssdb
+            - ${CA_STORE:-/usr/local/share/ca-certificates}:/usr/local/share/ca-certificates
 
     adminer:
         restart: unless-stopped
         image: dehy/adminer
         environment:
-            VIRTUAL_HOST: adminer.${DOCKER_HOST_SUFFIX:-docker}, *.adminer.${DOCKER_HOST_SUFFIX:-docker}
+            VIRTUAL_HOST: adminer.${DOCKER_HOST_SUFFIX:-local}, *.adminer.${DOCKER_HOST_SUFFIX:-local}
         networks:
             - proxy
             - database
@@ -30,7 +43,7 @@ services:
             - proxy
             - maildev
         environment:
-            VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-docker}
+            VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-local}
         command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
 
     memcached:
@@ -39,22 +52,12 @@ services:
         networks:
             - memcached
 
-    docs:
-        image: clue/sculpin
-        command: generate --watch --server
-        networks:
-            - proxy
-        volumes:
-            - ./docs:/data
-        environment:
-            VIRTUAL_HOST: docs.${DOCKER_HOST_SUFFIX:-docker}
-            VIRTUAL_PORT: 8000
-
     watchtower:
         image: v2tec/watchtower
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-        command: --interval 3600
+            - ~/.docker/config.json:/config.json:ro
+        command: --interval 3600 --cleanup
 
 networks:
     proxy:
@@ -65,3 +68,6 @@ networks:
         driver: bridge
     memcached:
         driver: bridge
+
+volumes:
+    ssl-certs:
