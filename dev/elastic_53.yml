@@ -2,17 +2,37 @@ version: '3.2'
 
 services:
     elastic_53:
+        restart: unless-stopped
         image: docker.elastic.co/elasticsearch/elasticsearch:5.3.0
         restart: unless-stopped
         networks:
+            - default
             - database
+            - proxy
         environment:
             http.host: 0.0.0.0
             transport.host: 127.0.0.1
             xpack.security.enabled: "false"
+            bootstrap.memory_lock: "true"
             ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
         volumes:
             - es_data:/usr/share/elasticsearch/data
+
+    kibana_53:
+        restart: unless-stopped
+        image: docker.elastic.co/kibana/kibana:5.3.0
+        environment:
+            VIRTUAL_HOST: 'kibana_53.$DOCKER_HOST_SUFFIX'
+            VIRTUAL_PORT: 5601
+            SERVER_NAME: kibana_53.$DOCKER_HOST_SUFFIX
+            ELASTICSEARCH_URL: http://elastic_53:9200
+        networks:
+            - database
+            - proxy
 
 volumes:
     es_data:
