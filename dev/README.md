@@ -44,7 +44,7 @@ sudo update-ca-certificates
 #### For Arch / Manjaro:
 
 ```shell
-echo 'CA_ROOT=/etc/ca-certificates/trust-source/anchors' >> .env
+echo 'CA_STORE=/etc/ca-certificates/trust-source/anchors' >> .env
 docker-compose up
 sudo trust extract-compat
 ```
@@ -52,7 +52,7 @@ sudo trust extract-compat
 #### For Fedora / RHEL / CentOS:
 
 ```shell
-echo 'CA_ROOT=/etc/pki/ca-trust/source/anchors' >> .env
+echo 'CA_STORE=/etc/pki/ca-trust/source/anchors' >> .env
 docker-compose up
 sudo update-ca-trust extract
 ```
@@ -60,7 +60,7 @@ sudo update-ca-trust extract
 ##### For Gentoo:
 
 ```shell
-echo 'CA_ROOT=/etc/ssl/certs' >> .env
+echo 'CA_STORE=/etc/ssl/certs' >> .env
 docker-compose up
 sudo update-ca-certificates
 ```
