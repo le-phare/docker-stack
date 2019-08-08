@@ -7,6 +7,10 @@ services:
         container_name: blackfire
         networks:
             - database
+            - http-proxy
+        dns:
+            - 192.168.1.11
+            - 1.1.1.1
         environment:
             - BLACKFIRE_SERVER_ID
             - BLACKFIRE_SERVER_TOKEN
@@ -16,3 +20,8 @@ services:
 volumes:
     pgsql_96_data:
         driver: local
+
+networks:
+    http-proxy:
+        external:
+            name: dev_proxy
