@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+    pgsql_10:
+        restart: unless-stopped
+        image: postgres:10
+        networks:
+            - database
+        volumes:
+            - pgsql_10_data:/var/lib/postgres/data
+        environment:
+            PGDATA: /var/lib/postgres/data
+
+volumes:
+    pgsql_10_data:
+        driver: local
