@@ -44,7 +44,7 @@ services:
             - maildev
         environment:
             VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-local}
-        command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
+        command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure --hide-extensions STARTTLS
 
     memcached:
         restart: unless-stopped
