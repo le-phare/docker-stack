@@ -10,6 +10,7 @@ services:
             - pgsql_95_data:/var/lib/postgres/data
         environment:
             PGDATA: /var/lib/postgres/data
+            POSTGRES_PASSWORD: root
 
 volumes:
     pgsql_95_data:
