@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+    pgsql_12:
+        restart: unless-stopped
+        image: postgres:12
+        networks:
+            - database
+        volumes:
+            - pgsql_12_data:/var/lib/postgres/data
+        environment:
+            PGDATA: /var/lib/postgres/data
+            POSTGRES_PASSWORD: root
+
+volumes:
+    pgsql_12_data:
+        driver: local
