@@ -11,8 +11,6 @@ services:
         environment:
             PGDATA: /var/lib/postgres/data
             POSTGRES_PASSWORD: root
-        ports:
-        -  5432:5432
 
 volumes:
     pgsql_13_data:
