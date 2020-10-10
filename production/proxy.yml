@@ -4,7 +4,7 @@ services:
     nginx:
         container_name: nginx
         image: nginx
-        restart: unless-stopped
+        restart: always
         ports:
             - '80:80'
             - '443:443'
@@ -22,7 +22,7 @@ services:
     nginx-gen:
         container_name: nginx-gen
         image: jwilder/docker-gen
-        restart: unless-stopped
+        restart: always
         networks:
             - proxy
         volumes:
@@ -40,7 +40,7 @@ services:
     letsencrypt:
         container_name: letsencrypt
         image:  jrcs/letsencrypt-nginx-proxy-companion
-        restart: unless-stopped
+        restart: always
         depends_on:
             - nginx
             - nginx-gen
