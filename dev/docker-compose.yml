@@ -52,13 +52,6 @@ services:
         networks:
             - memcached
 
-    watchtower:
-        image: v2tec/watchtower
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ~/.docker/config.json:/config.json:ro
-        command: --interval 3600 --cleanup
-
 networks:
     proxy:
         driver: bridge
