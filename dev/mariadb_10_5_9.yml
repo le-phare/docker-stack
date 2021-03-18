@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+    mariadb_10_5_9:
+        restart: unless-stopped
+        image: mariadb:10.5.9
+        networks:
+            - database
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+            - mariadb_10_5_9_data:/var/lib/mysql
+
+volumes:
+    mariadb_10_5_9_data:
+        driver: local

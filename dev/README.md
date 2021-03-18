@@ -99,6 +99,7 @@ The repository currently support theses databases :
  - mysql 5.7
  - elasticsearch 5.3
  - blackfire
+ - mariadb 10.5.9
 
 ### How to use blackfire ?
 
