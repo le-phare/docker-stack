@@ -21,7 +21,7 @@ docker-compose up -d
 
 Gitlab Registry :
 
-1. Go to (https://gitlab.com/profile/personal_access_tokens)
+1. Go to (https://gitlab.com/-/profile/personal_access_tokens)
 2. Enter "Docker stack" in the **Name** field and check **api** and **read_registry**
 3. Copy the generated token
 4. In a terminal:
