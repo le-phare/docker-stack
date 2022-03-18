@@ -1,11 +1,9 @@
-version: '3.2'
-
 services:
     mariadb_10:
         restart: unless-stopped
         image: mariadb:10
         networks:
-            - database
+            database:
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:

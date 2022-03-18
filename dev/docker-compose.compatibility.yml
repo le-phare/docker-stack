@@ -1,0 +1,6 @@
+services:
+    pgsql_9:
+        networks:
+            database:
+                aliases:
+                    - pgsql_96

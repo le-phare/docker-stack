@@ -1,17 +1,15 @@
-version: '3.2'
-
 services:
-    pgsql_13:
+    pgsql_9:
         restart: unless-stopped
-        image: postgres:13
+        image: postgres:9
         networks:
-            - database
+            database:
         volumes:
-            - pgsql_13_data:/var/lib/postgres/data
+            - pgsql_9_data:/var/lib/postgres/data
         environment:
             PGDATA: /var/lib/postgres/data
             POSTGRES_PASSWORD: root
 
 volumes:
-    pgsql_13_data:
+    pgsql_9_data:
         driver: local
