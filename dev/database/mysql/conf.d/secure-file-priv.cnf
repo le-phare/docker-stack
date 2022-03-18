@@ -1,2 +1,3 @@
 [mysqld]
+local-infile=1
 secure-file-priv = /var/lib/mysql

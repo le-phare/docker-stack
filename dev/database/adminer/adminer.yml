@@ -1,0 +1,9 @@
+services:
+    adminer:
+        restart: always
+        image: adminer
+        environment:
+            VIRTUAL_HOST: adminer.${DOCKER_HOST_SUFFIX:-local}, *.adminer.${DOCKER_HOST_SUFFIX:-local}
+        networks:
+            proxy:
+            database:

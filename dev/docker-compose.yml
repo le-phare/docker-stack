@@ -1,20 +1,20 @@
-version: '3.2'
+version: "3.2"
 
 services:
     proxy:
         restart: always
-        image: jwilder/nginx-proxy
+        image: nginxproxy/nginx-proxy
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
             - ssl-certs:/etc/nginx/certs:ro
             - ./conf/proxy/default.conf:/etc/nginx/proxy.conf
         networks:
-            - proxy
+            proxy:
         labels:
             - com.github.aegypius.mkcert-for-nginx-proxy.nginx_proxy
         ports:
-            - '80:80'
-            - '443:443'
+            - "80:80"
+            - "443:443"
 
     mkcert:
         container_name: mkcert-for-nginx-proxy
@@ -27,21 +27,12 @@ services:
             - ~/.pki/nssdb:/root/.pki/nssdb
             - ${CA_STORE:-/usr/local/share/ca-certificates}:/usr/local/share/ca-certificates
 
-    adminer:
-        restart: always
-        image: adminer
-        environment:
-            VIRTUAL_HOST: adminer.${DOCKER_HOST_SUFFIX:-local}, *.adminer.${DOCKER_HOST_SUFFIX:-local}
-        networks:
-            - proxy
-            - database
-
     maildev:
         restart: always
         image: djfarrelly/maildev
         networks:
-            - proxy
-            - maildev
+            proxy:
+            maildev:
         environment:
             VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-local}
         command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure --hide-extensions STARTTLS
@@ -50,7 +41,7 @@ services:
         restart: always
         image: memcached:1.4
         networks:
-            - memcached
+            memcached:
 
 networks:
     proxy:

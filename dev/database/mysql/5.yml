@@ -1,17 +1,15 @@
-version: '3.2'
-
 services:
     mysql_57:
         restart: unless-stopped
-        image: mysql:5.7
+        image: mysql:5
         networks:
-            - database
+            database:
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
-            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
-            - mysql_57_data:/var/lib/mysql
+            - ./database/mysql/conf.d:/etc/mysql/conf.d:ro
+            - mysql_5_data:/var/lib/mysql
 
 volumes:
-    mysql_57_data:
+    mysql_5_data:
         driver: local
