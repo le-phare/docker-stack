@@ -2,8 +2,10 @@ services:
     adminer:
         restart: always
         image: adminer
-        environment:
-            VIRTUAL_HOST: adminer.${DOCKER_HOST_SUFFIX:-local}, *.adminer.${DOCKER_HOST_SUFFIX:-local}
+        labels:
+            caddy: adminer.${DOCKER_HOST_SUFFIX:-local}, *.adminer.${DOCKER_HOST_SUFFIX:-local}
+            caddy.tls: internal
+            caddy.reverse_proxy: "{{upstreams 8080}}"
         networks:
             proxy:
-            database:
+            backend:

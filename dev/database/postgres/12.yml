@@ -3,7 +3,7 @@ services:
         restart: unless-stopped
         image: postgres:12
         networks:
-            database:
+            backend:
         volumes:
             - pgsql_12_data:/var/lib/postgres/data
         environment:
