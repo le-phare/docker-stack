@@ -3,7 +3,7 @@ services:
         restart: unless-stopped
         image: mariadb:10
         networks:
-            database:
+            backend:
         environment:
             MYSQL_ROOT_PASSWORD: root
         volumes:
