@@ -1,15 +1,14 @@
 services:
-    mariadb_10:
-        restart: unless-stopped
-        image: mariadb:10
-        networks:
-            backend:
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-        volumes:
-            - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
-            - mariadb_10_data:/var/lib/mysql
+  mariadb_10:
+    restart: unless-stopped
+    image: mariadb:10
+    networks:
+      private:
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
+      - mariadb_10:/var/lib/mysql
 
 volumes:
-    mariadb_10_data:
-        driver: local
+  mariadb_10:

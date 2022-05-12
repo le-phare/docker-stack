@@ -1,15 +1,14 @@
 services:
-    pgsql_9:
-        restart: unless-stopped
-        image: postgres:9
-        networks:
-            backend:
-        volumes:
-            - pgsql_9_data:/var/lib/postgres/data
-        environment:
-            PGDATA: /var/lib/postgres/data
-            POSTGRES_PASSWORD: root
+  pgsql_9:
+    image: postgres:9
+    restart: unless-stopped
+    networks:
+      private:
+    volumes:
+      - pgsql_9:/var/lib/postgres/data
+    environment:
+      PGDATA: /var/lib/postgres/data
+      POSTGRES_PASSWORD: root
 
 volumes:
-    pgsql_9_data:
-        driver: local
+  pgsql_9:
