@@ -1,12 +1,10 @@
-version: "3.7"
-
 services:
   proxy:
     build:
       context: proxy
     restart: unless-stopped
     networks:
-      - proxy
+      - public
     ports:
         # HTTP
       - target: 80
@@ -21,7 +19,7 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
     environment:
-      CADDY_INGRESS_NETWORKS: dev_proxy
+      CADDY_INGRESS_NETWORKS: dev_public
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - caddy_config:/config
@@ -31,8 +29,8 @@ services:
     restart: always
     image: djfarrelly/maildev
     networks:
-      proxy:
-      backend:
+      public:
+      private:
     environment:
       VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-local}
     command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure --hide-extensions STARTTLS
@@ -41,12 +39,12 @@ services:
     restart: always
     image: memcached:1.4
     networks:
-      backend:
+      private:
 
 networks:
-    proxy:
+    public:
         driver: bridge
-    backend:
+    private:
         driver: bridge
 
 volumes:

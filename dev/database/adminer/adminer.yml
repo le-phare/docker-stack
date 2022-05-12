@@ -1,11 +1,11 @@
 services:
-    adminer:
-        restart: always
-        image: adminer
-        labels:
-            caddy: adminer.${DOCKER_HOST_SUFFIX:-local}, *.adminer.${DOCKER_HOST_SUFFIX:-local}
-            caddy.tls: internal
-            caddy.reverse_proxy: "{{upstreams 8080}}"
-        networks:
-            proxy:
-            backend:
+  adminer:
+    restart: always
+    image: adminer
+    labels:
+      caddy: adminer.${DOCKER_HOST_SUFFIX:-local}
+      caddy.tls: internal
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+    networks:
+      public:
+      private:

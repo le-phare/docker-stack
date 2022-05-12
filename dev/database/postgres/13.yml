@@ -1,15 +1,14 @@
 services:
-    pgsql_13:
-        restart: unless-stopped
-        image: postgres:13
-        networks:
-            backend:
-        volumes:
-            - pgsql_13_data:/var/lib/postgres/data
-        environment:
-            PGDATA: /var/lib/postgres/data
-            POSTGRES_PASSWORD: root
+  pgsql_13:
+    restart: unless-stopped
+    image: postgres:13
+    networks:
+      private:
+    volumes:
+      - pgsql_13:/var/lib/postgres/data
+    environment:
+      PGDATA: /var/lib/postgres/data
+      POSTGRES_PASSWORD: root
 
 volumes:
-    pgsql_13_data:
-        driver: local
+  pgsql_13:

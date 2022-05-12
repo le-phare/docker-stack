@@ -1,6 +1,6 @@
 services:
   pgsql_9:
     networks:
-      backend:
+      private:
         aliases:
           - pgsql_96

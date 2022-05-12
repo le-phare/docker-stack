@@ -1,7 +1,21 @@
 {
-	pki {
-		ca internal {
+  # Debug
+  {$DEBUG}
 
-		}
-	}
+  local_certs
+
+  # HTTP/3 support
+  servers {
+    protocol {
+      experimental_http3
+    }
+  }
+}
+
+:443 {
+  root * /usr/share/caddy
+  file_server
+  tls internal {
+    on_demand
+  }
 }
