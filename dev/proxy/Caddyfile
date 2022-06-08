@@ -15,7 +15,5 @@
 :443 {
   root * /usr/share/caddy
   file_server
-  tls internal {
-    on_demand
-  }
+  tls internal
 }

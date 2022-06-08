@@ -2,5 +2,8 @@ services:
   pgsql_9:
     networks:
       private:
-        aliases:
-          - pgsql_96
+        aliases: [ pgsql_96 ]
+  mysql_5:
+    networks:
+      private:
+        aliases: [ mysql_55 ]

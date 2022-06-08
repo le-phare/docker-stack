@@ -6,7 +6,7 @@ services:
     networks:
       - public
     ports:
-        # HTTP
+      # HTTP
       - target: 80
         published: ${HTTP_PORT:-80}
         protocol: tcp
@@ -24,6 +24,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - caddy_config:/config
       - caddy_data:/data
+    labels:
+      caddy: ${DOCKER_HOST_SUFFIX:-local}
+      caddy.tls: internal
+      caddy.respond: |-
+        / "Healthy" 200
 
   maildev:
     restart: always
@@ -31,9 +36,11 @@ services:
     networks:
       public:
       private:
-    environment:
-      VIRTUAL_HOST: maildev.${DOCKER_HOST_SUFFIX:-local}
     command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure --hide-extensions STARTTLS
+    labels:
+      caddy: maildev.${DOCKER_HOST_SUFFIX:-local}
+      caddy.tls: internal
+      caddy.reverse_proxy: "{{upstreams}}"
 
   memcached:
     restart: always
@@ -41,13 +48,13 @@ services:
     networks:
       private:
 
+
 networks:
-    public:
-        driver: bridge
-    private:
-        driver: bridge
+  public:
+    driver: bridge
+  private:
+    driver: bridge
 
 volumes:
-    ssl-certs:
-    caddy_data:
-    caddy_config:
+  caddy_data:
+  caddy_config:

@@ -1,5 +1,5 @@
 services:
-  mysql_57:
+  mysql_5:
     restart: unless-stopped
     image: mysql:5
     networks:
