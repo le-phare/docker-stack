@@ -3,7 +3,15 @@ services:
     networks:
       private:
         aliases: [ pgsql_96 ]
+      database:
+        aliases: [ pgsql_96 ]
+
   mysql_5:
     networks:
       private:
         aliases: [ mysql_55 ]
+      database:
+        aliases: [ mysql_55 ]
+
+networks:
+  database:
