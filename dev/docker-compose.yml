@@ -1,7 +1,6 @@
 services:
   proxy:
-    build:
-      context: proxy
+    image: ghcr.io/le-phare/docker-stack/proxy:setup-ci
     restart: unless-stopped
     networks:
       - public
