@@ -9,6 +9,12 @@ services:
     environment:
       PGDATA: /var/lib/postgres/data
       POSTGRES_PASSWORD: root
+    healthcheck:
+      test: ["pg_isready"]
+      interval: 1ms
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   pgsql_12:
