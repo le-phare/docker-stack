@@ -27,7 +27,7 @@ Github Container Registry :
 4. In a terminal:
 
 ```shell
-docker login registry.gitlab.com
+docker login ghcr.io
 Username: # Enter your login
 Password: # Enter the generated token copied earlier
 ```
