@@ -65,3 +65,13 @@ The repository currently support theses databases :
  - postgresql 9, 10, 11, 12, 13, 14
  - mysql 5
  - mariadb 10
+
+## Troubleshooting
+
+- If setup.sh respond `trust: install is not supported on this system`:
+
+```shell
+    sudo trust anchor --store /var/lib/docker/volumes/dev_caddy_data/_data/caddy/pki/authorities/local/root.crt
+    sudo trust anchor --store /var/lib/docker/volumes/dev_caddy_data/_data/caddy/pki/authorities/local/intermediate.crt
+    sudo update-ca-trust
+```
