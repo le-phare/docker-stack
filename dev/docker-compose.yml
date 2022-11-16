@@ -28,6 +28,12 @@ services:
       caddy.tls: internal
       caddy.respond: |-
         / "Healthy" 200
+    healthcheck:
+      test: [ "CMD", "wget", "-qO-", "http://localhost:2019/config" ]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   maildev:
     restart: always
@@ -40,10 +46,16 @@ services:
       caddy: maildev.${DOCKER_HOST_SUFFIX:-local}
       caddy.tls: internal
       caddy.reverse_proxy: "{{upstreams}}"
+    healthcheck:
+      test: [ "CMD", "wget", "-qO-", "http://localhost" ]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   memcached:
     restart: always
-    image: memcached:1.4
+    image: memcached:1.6-alpine
     networks:
       private:
 

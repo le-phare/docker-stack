@@ -9,3 +9,9 @@ services:
     networks:
       public:
       private:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 1ms
+      timeout: 5s
+      retries: 5
+      start_period: 30s

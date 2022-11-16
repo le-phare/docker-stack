@@ -9,6 +9,12 @@ services:
     volumes:
       - ./conf/mysql/conf.d:/etc/mysql/conf.d:ro
       - mariadb_10:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   mariadb_10:
