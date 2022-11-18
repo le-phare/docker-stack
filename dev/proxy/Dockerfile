@@ -4,7 +4,7 @@ FROM caddy:${CADDY_VERSION}-builder-alpine AS builder
 
 RUN xcaddy build \
   # Docker label support
-  --with github.com/lucaslorentz/caddy-docker-proxy/plugin \
+  --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
   # Mercure / Vulcain support
   --with github.com/dunglas/mercure \
   --with github.com/dunglas/mercure/caddy \
@@ -19,4 +19,4 @@ COPY Caddyfile /etc/caddy/Caddyfile
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-qO-", "http://localhost:2019/config" ]
 
-CMD ["caddy", "docker-proxy", "-caddyfile-path=/etc/caddy/Caddyfile"]
+CMD ["caddy", "docker-proxy", "--caddyfile-path=/etc/caddy/Caddyfile"]
