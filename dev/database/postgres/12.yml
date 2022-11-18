@@ -10,7 +10,7 @@ services:
       PGDATA: /var/lib/postgres/data
       POSTGRES_PASSWORD: root
     healthcheck:
-      test: ["pg_isready"]
+      test: ["CMD", "pg_isready"]
       interval: 1ms
       timeout: 5s
       retries: 5
