@@ -30,7 +30,7 @@ services:
         / "Healthy" 200
     healthcheck:
       test: [ "CMD", "wget", "-qO-", "http://localhost:2019/config" ]
-      interval: 1s
+      interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
@@ -48,7 +48,7 @@ services:
       caddy.reverse_proxy: "{{upstreams}}"
     healthcheck:
       test: [ "CMD", "wget", "-qO-", "http://localhost" ]
-      interval: 1s
+      interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s

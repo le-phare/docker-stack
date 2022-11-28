@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: root
     healthcheck:
       test: ["CMD", "pg_isready"]
-      interval: 1ms
+      interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s

@@ -11,7 +11,7 @@ services:
       - mariadb_10:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$$MYSQL_ROOT_PASSWORD"]
-      interval: 1s
+      interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
