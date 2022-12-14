@@ -16,7 +16,7 @@ You also need to set the DOCKER_HOST_SUFFIX env var in your shell
 
 ```shell
 cp .env.dist .env
-docker-compose up -d
+docker compose up -d
 ```
 
 Github Container Registry :
