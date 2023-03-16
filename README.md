@@ -5,8 +5,8 @@ This repository contains the dev configuration for commons containers.
 ## Install
 
 ```shell
-git clone git@gitlab.com:lephare/docker-stack.git
-cd docker-stack/dev
+git clone git@github.com:le-phare/docker-stack.git
+cd docker-stack
 ```
 
 ### Configuration
