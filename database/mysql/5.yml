@@ -15,5 +15,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    # see https://github.com/docker-library/mysql/issues/579#issuecomment-519495808
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
 volumes:
   mysql_5:
