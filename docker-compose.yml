@@ -1,6 +1,6 @@
 services:
   proxy:
-    image: ghcr.io/le-phare/docker-stack/proxy:next
+    image: ghcr.io/le-phare/docker-stack/proxy:main
     restart: unless-stopped
     networks:
       - public
