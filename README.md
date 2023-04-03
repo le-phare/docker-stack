@@ -28,7 +28,7 @@ Github Container Registry :
 
 ```shell
 docker login ghcr.io
-Username: # Enter your login
+Username: # Enter your login or your email
 Password: # Enter the generated token copied earlier
 ```
 
