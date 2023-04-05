@@ -11,7 +11,7 @@ env:
 
 jobs:
   caddy:
-    name: Caddy image
+    name: Build & Release
     runs-on: ubuntu-latest
 
     permissions:
@@ -55,7 +55,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: proxy
-          push: ${{ steps.create_release.outputs.releases_created == true }}
+          push: ${{ steps.create_release.outputs.upload_url != null }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
