@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "**"
-    tags:
-      - "v*"
 
 env:
   REGISTRY: ghcr.io
@@ -15,9 +13,12 @@ jobs:
   caddy:
     name: Caddy image
     runs-on: ubuntu-latest
+
     permissions:
-      contents: read
+      contents: write
       packages: write
+      pull-requests: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -38,17 +39,23 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/proxy
           tags: |
-            type=schedule,pattern=nightly
+            type=schedule,pattern=weekly
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
+      - uses: google-github-actions/release-please-action@v3
+        if: github.ref == 'refs/heads/main'
+        id: create_release
+        with:
+          release-type: simple
+
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: proxy
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ steps.create_release.outputs.releases_created }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
