@@ -1,7 +1,7 @@
 services:
   mysql_5:
     restart: unless-stopped
-    image: mysql:5
+    image: mysql:5-debian
     networks:
       private:
     environment:
