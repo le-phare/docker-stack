@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/le-phare/docker-stack/compare/v2.1.0...v2.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **mysql:** use debian variant of the image ([d402aeb](https://github.com/le-phare/docker-stack/commit/d402aeb0f2d26fa87122dfd7f1240834b2989251))
+
 ## 2.1.0 (2023-04-05)
 
 
