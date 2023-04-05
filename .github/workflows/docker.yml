@@ -55,7 +55,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: proxy
-          push: ${{ steps.create_release.outputs.releases_created }}
+          push: ${{ steps.create_release.outputs.releases_created == true }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
