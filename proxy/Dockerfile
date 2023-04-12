@@ -1,5 +1,5 @@
 ARG CADDY_VERSION=2.6.4
-FROM caddy:${CADDY_VERSION}-builder-alpine AS builder
+FROM --platform=$BUILDPLATFORM caddy:${CADDY_VERSION}-builder-alpine AS builder
 
 RUN xcaddy build \
   # Docker label support
@@ -10,7 +10,7 @@ RUN xcaddy build \
   --with github.com/dunglas/vulcain \
   --with github.com/dunglas/vulcain/caddy
 
-FROM caddy:${CADDY_VERSION}-alpine
+FROM --platform=$BUILDPLATFORM caddy:${CADDY_VERSION}-alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
