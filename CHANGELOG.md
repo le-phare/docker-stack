@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/le-phare/docker-stack/compare/v2.1.1...v2.2.0) (2023-04-12)
+
+
+### Features
+
+* add support for arm64 ([b3b58a8](https://github.com/le-phare/docker-stack/commit/b3b58a8da9127ebce7250ee6521a9f229cb6f756))
+
 ## [2.1.1](https://github.com/le-phare/docker-stack/compare/v2.1.0...v2.1.1) (2023-04-05)
 
 
