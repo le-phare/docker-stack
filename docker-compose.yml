@@ -37,7 +37,7 @@ services:
 
   maildev:
     restart: always
-    image: djfarrelly/maildev
+    image: maildev/maildev
     networks:
       public:
       private:
