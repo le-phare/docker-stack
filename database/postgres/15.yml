@@ -1,0 +1,20 @@
+services:
+  pgsql_15:
+    restart: unless-stopped
+    image: postgres:15
+    networks:
+      private:
+    volumes:
+      - pgsql_15:/var/lib/postgres/data
+    environment:
+      PGDATA: /var/lib/postgres/data
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  pgsql_15:
