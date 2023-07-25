@@ -10,7 +10,7 @@ services:
       public:
       private:
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      test: ["CMD", "php", "-r", "@file_get_contents('http://localhost:8080') or exit(1);"]
       interval: 10s
       timeout: 5s
       retries: 5
