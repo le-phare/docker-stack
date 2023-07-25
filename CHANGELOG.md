@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.3.0](https://github.com/le-phare/docker-stack/compare/v2.2.0...v2.3.0) (2023-07-25)
+
+
+### Features
+
+* PostgreSQL 15 ([8b38666](https://github.com/le-phare/docker-stack/commit/8b386667ea28290a16b4886d92617565dae81c40))
+
+
+### Bug Fixes
+
+* **adminer:** use PHP instead of cURL for container healthcheck ([61fe1f9](https://github.com/le-phare/docker-stack/commit/61fe1f9a94a4a5d7aac344213513b5e054810ba3))
+
 ## [2.2.0](https://github.com/le-phare/docker-stack/compare/v2.1.1...v2.2.0) (2023-04-12)
 
 
