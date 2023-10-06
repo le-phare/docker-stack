@@ -3,13 +3,6 @@
   {$DEBUG}
 
   local_certs
-
-  # HTTP/3 support
-  servers {
-    protocol {
-      experimental_http3
-    }
-  }
 }
 
 :443 {
