@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/le-phare/docker-stack/compare/v2.3.0...v2.3.1) (2023-10-06)
+
+
+### Bug Fixes
+
+* **caddy:** remove deprecated `experimental_http3` option, upgrade to 2.7.4 ([#19](https://github.com/le-phare/docker-stack/issues/19)) ([c4f9544](https://github.com/le-phare/docker-stack/commit/c4f9544a450cbcaa49d4caca87ca3ca90ac3671a))
+
 ## [2.3.0](https://github.com/le-phare/docker-stack/compare/v2.2.0...v2.3.0) (2023-07-25)
 
 
