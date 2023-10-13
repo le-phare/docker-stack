@@ -1,19 +1,9 @@
-ARG CADDY_VERSION=2.7.4
-FROM --platform=$BUILDPLATFORM caddy:${CADDY_VERSION}-builder-alpine AS builder
+FROM --platform=$TARGETPLATFORM caddy:2-alpine
+ARG TARGETOS
+ARG TARGETARCH
 
-RUN xcaddy build \
-  # Docker label support
-  --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
-  # Mercure / Vulcain support
-  --with github.com/dunglas/mercure \
-  --with github.com/dunglas/mercure/caddy \
-  --with github.com/dunglas/vulcain \
-  --with github.com/dunglas/vulcain/caddy
+ADD --chmod=500 https://caddyserver.com/api/download?os=${TARGETOS}&arch=${TARGETARCH}&p=github.com/lucaslorentz/caddy-docker-proxy/v2&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy /usr/bin/caddy
 
-FROM --platform=$BUILDPLATFORM caddy:${CADDY_VERSION}-alpine
-
-COPY --from=builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
 COPY Caddyfile /etc/caddy/Caddyfile
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-qO-", "http://localhost:2019/config" ]
