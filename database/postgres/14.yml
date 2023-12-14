@@ -8,13 +8,12 @@ services:
       - pgsql_14:/var/lib/postgres/data
     environment:
       PGDATA: /var/lib/postgres/data
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
     healthcheck:
-      test: ["CMD", "pg_isready"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
       timeout: 5s
-      retries: 5
-      start_period: 30s
+      start_period: 10s
 
 volumes:
   pgsql_14:
