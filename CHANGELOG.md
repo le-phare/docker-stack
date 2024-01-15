@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/le-phare/docker-stack/compare/v2.3.1...v2.3.2) (2024-01-15)
+
+
+### Bug Fixes
+
+* **postgres:** patch healthcheck to avoid 'role "root" does not exist' errors ([#22](https://github.com/le-phare/docker-stack/issues/22)) ([6cdc5d0](https://github.com/le-phare/docker-stack/commit/6cdc5d0164de13c4405eae617aba0deca97e31a7))
+
 ## [2.3.1](https://github.com/le-phare/docker-stack/compare/v2.3.0...v2.3.1) (2023-10-06)
 
 
