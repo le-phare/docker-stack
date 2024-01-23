@@ -66,6 +66,11 @@ The repository currently support these databases :
  - mysql 5
  - mariadb 10
 
+The repository currently support these message brokers :
+
+ - rabbitmq 3.8
+
+
 ## Troubleshooting
 
 - If setup.sh respond `trust: install is not supported on this system`:
