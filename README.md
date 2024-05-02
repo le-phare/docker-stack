@@ -66,7 +66,7 @@ The repository currently supports these databases:
  - mysql 5
  - mariadb 10
 
-The repository currently support these message brokers :
+The repository currently supports these message brokers:
 
  - rabbitmq 3.8
 
