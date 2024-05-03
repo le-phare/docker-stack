@@ -1,7 +1,5 @@
 # Changelog
 
-## [2.3.3](https://github.com/le-phare/docker-stack/compare/v2.3.2...v2.3.3) (2024-01-22)
-
 ## [2.3.2](https://github.com/le-phare/docker-stack/compare/v2.3.1...v2.3.2) (2024-01-15)
 
 
