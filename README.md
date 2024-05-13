@@ -60,11 +60,16 @@ The default configuration is
 	COMPOSE_FILE=docker-compose.yml:database/adminer/adminer.yml:database/mysql/5.yml:database/postgres/9.yml:database/postgres/14.yml:docker-compose.compatibility.yml
 
 
-The repository currently support theses databases :
+The repository currently supports these databases:
 
  - postgresql 9, 10, 11, 12, 13, 14
  - mysql 5
  - mariadb 10
+
+The repository currently supports these message brokers:
+
+ - rabbitmq 3.8
+
 
 ## Troubleshooting
 
