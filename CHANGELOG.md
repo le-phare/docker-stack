@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/le-phare/docker-stack/compare/v2.3.2...v2.4.0) (2024-05-13)
+
+
+### Features
+
+* **services:** add Rabbitmq 3.8 ([#24](https://github.com/le-phare/docker-stack/issues/24)) ([3429b18](https://github.com/le-phare/docker-stack/commit/3429b18abce69d23a41c0d923eaf84fdb02de9fa))
+
 ## [2.3.2](https://github.com/le-phare/docker-stack/compare/v2.3.1...v2.3.2) (2024-01-15)
 
 
