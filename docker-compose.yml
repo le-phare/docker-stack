@@ -59,6 +59,15 @@ services:
     networks:
       private:
 
+  watchtower:
+    image: v2tec/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.docker/config.json:/config.json
+    environment:
+      WATCHTOWER_IMAGES: ${WATCHTOWER_IMAGES}
+    command: --interval 3600 --cleanup
+
 
 networks:
   public:
