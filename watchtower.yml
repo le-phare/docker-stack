@@ -1,0 +1,9 @@
+services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    environment:
+      WATCHTOWER_SCHEDULE: ${WATCHTOWER_SCHEDULE-0 0 17 * * *}
