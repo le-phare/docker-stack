@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.4.0](https://github.com/le-phare/docker-stack/compare/v2.3.2...v2.4.0) (2024-07-19)
+
+
+### Features
+
+* **services:** add facultative watchtower service ([#28](https://github.com/le-phare/docker-stack/issues/28)) ([c3a5d18](https://github.com/le-phare/docker-stack/commit/c3a5d18b391b208f054b4023f12aab80cc37e46d))
+* **services:** add postgresql 16 ([#29](https://github.com/le-phare/docker-stack/issues/29)) ([521b5e3](https://github.com/le-phare/docker-stack/commit/521b5e3df2dbb55e67e5f13ee7ee6c9c5bf97a3e))
+* **services:** add Rabbitmq 3.8 ([#24](https://github.com/le-phare/docker-stack/issues/24)) ([3429b18](https://github.com/le-phare/docker-stack/commit/3429b18abce69d23a41c0d923eaf84fdb02de9fa))
+
 ## [2.3.2](https://github.com/le-phare/docker-stack/compare/v2.3.1...v2.3.2) (2024-01-15)
 
 
