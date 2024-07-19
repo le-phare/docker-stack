@@ -55,14 +55,12 @@ The base stack contains the minimal configuration related to web development.
 
 The default configuration include 3 databases containers : mysql 5, postgres 9 and postgres 14. You can change the loaded containers by changing the `COMPOSE_FILE` environment variable in the `.env` file.
 
-The default configuration is
-
-	COMPOSE_FILE=docker-compose.yml:database/adminer/adminer.yml:database/mysql/5.yml:database/postgres/9.yml:database/postgres/14.yml:docker-compose.compatibility.yml
+The default configuration can be found in the `.env.dist` file.
 
 
 The repository currently supports these databases:
 
- - postgresql 9, 10, 11, 12, 13, 14
+ - postgresql 9, 10, 11, 12, 13, 14, 15, 16
  - mysql 5
  - mariadb 10
 
