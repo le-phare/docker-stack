@@ -41,7 +41,7 @@ services:
       start_interval: 5s
 
   maildev:
-    restart: always
+    restart: unless-stopped
     image: docker.io/maildev/maildev
     networks:
       public:
@@ -64,7 +64,7 @@ services:
       start_interval: 5s
 
   memcached:
-    restart: always
+    restart: unless-stopped
     image: docker.io/memcached:1.6-alpine
     networks:
       private:

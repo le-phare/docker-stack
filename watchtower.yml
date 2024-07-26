@@ -4,7 +4,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
-    restart: always
+    restart: unless-stopped
     environment:
       WATCHTOWER_SCHEDULE: ${WATCHTOWER_SCHEDULE-0 0 17 * * *}
     healthcheck:
