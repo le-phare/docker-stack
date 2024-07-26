@@ -52,7 +52,7 @@ The base stack contains the minimal configuration related to web development.
 
 ## Compose your stack
 
-The default configuration include 3 databases containers : MySQL 5, PostgreSQL 9 and PostgreSQL 17.
+The default configuration enables currently supported PostgreSQL images : 14, 15, 16, 17 and 18.
 
 You can change the loaded containers by changing the `COMPOSE_FILE` environment variable in the `.env` file.
 
