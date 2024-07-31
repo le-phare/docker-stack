@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.4.1](https://github.com/le-phare/docker-stack/compare/v2.4.0...v2.4.1) (2024-07-31)
+
+### Miscellaneous Chores
+
+* **maildev:** remove redundant `--hide-extensions STARTTLS` option ([todo](https://github.com/le-phare/docker-stack/commit/todo))
+
 ## [2.4.0](https://github.com/le-phare/docker-stack/compare/v2.3.2...v2.4.0) (2024-07-19)
 
 

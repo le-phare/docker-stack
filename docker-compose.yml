@@ -41,7 +41,7 @@ services:
     networks:
       public:
       private:
-    command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure --hide-extensions STARTTLS
+    command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
     labels:
       caddy: maildev.${DOCKER_HOST_SUFFIX:-local}
       caddy.tls: internal
