@@ -4,7 +4,7 @@
 
 ### Miscellaneous Chores
 
-* **maildev:** remove redundant `--hide-extensions STARTTLS` option ([todo](https://github.com/le-phare/docker-stack/commit/todo))
+* **maildev:** remove redundant `--hide-extensions STARTTLS` option ([3b97d9a](https://github.com/le-phare/docker-stack/commit/3b97d9a30540fca6224f73816918b88077ebb38d))
 
 ## [2.4.0](https://github.com/le-phare/docker-stack/compare/v2.3.2...v2.4.0) (2024-07-19)
 
