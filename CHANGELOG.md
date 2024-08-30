@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/le-phare/docker-stack/compare/v2.4.0...v2.5.0) (2024-08-30)
+
+
+### Features
+
+* **adminer:** switch to Adminer Evo, pre-login to database servers ([#32](https://github.com/le-phare/docker-stack/issues/32)) ([0778dc5](https://github.com/le-phare/docker-stack/commit/0778dc523025badff8a7f71ebb0c81e31535fc50))
+
 ## [2.4.0](https://github.com/le-phare/docker-stack/compare/v2.3.2...v2.4.0) (2024-07-19)
 
 
