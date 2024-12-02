@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/le-phare/docker-stack/compare/v2.5.0...v2.6.0) (2024-12-02)
+
+
+### Features
+
+* **services:** add PostgreSQL 17 ([#35](https://github.com/le-phare/docker-stack/issues/35)) ([30c8f84](https://github.com/le-phare/docker-stack/commit/30c8f84faf5e5e3c9f03fe392473bfc39fc62396))
+
 ## [2.5.0](https://github.com/le-phare/docker-stack/compare/v2.4.0...v2.5.0) (2024-08-30)
 
 
