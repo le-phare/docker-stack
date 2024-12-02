@@ -46,10 +46,10 @@ Restart your browsers !
 
 The base stack contains the minimal configuration related to web development.
 
- - caddy
- - adminer
- - maildev
- - memcached
+ - AdminerEvo
+ - Caddy
+ - MailDev
+ - Memcached
 
 ## Compose your stack
 
@@ -69,13 +69,3 @@ The repository currently supports these message brokers:
  - rabbitmq 3.8
 
 An optional watchtower service is available to update docker images automatically. Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file (default is `0 0 17 * * *`). You should also [login to your docker hub account](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) to prevent rate limit issues.
-
-## Troubleshooting
-
-- If setup.sh respond `trust: install is not supported on this system`:
-
-```shell
-    sudo trust anchor --store /var/lib/docker/volumes/dev_caddy_data/_data/caddy/pki/authorities/local/root.crt
-    sudo trust anchor --store /var/lib/docker/volumes/dev_caddy_data/_data/caddy/pki/authorities/local/intermediate.crt
-    sudo update-ca-trust
-```
