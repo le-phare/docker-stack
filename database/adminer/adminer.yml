@@ -1,25 +1,16 @@
 services:
-  adminer_php:
-    restart: unless-stopped
-    image: lephare/adminerevo
-    volumes:
-      - "./database/adminer/index.php:/var/www/adminer/index.php:ro"
-      - "./database/adminer/plugins:/var/www/adminer/plugins:ro"
-    networks:
-      - private
-
   adminer:
     restart: unless-stopped
-    image: lephare/apache:2.4
-    volumes_from:
-      - adminer_php:ro
+    image: adminer:4
+    volumes:
+      - "./database/adminer/plugins/le-phare-pre-login-to-databases.php:/var/www/html/plugins/le-phare-pre-login-to-databases.php:ro"
+    networks:
+      - private
+      - public
+    command: "php -S [::]:80 -t /var/www/html"
     labels:
       caddy: adminer.${DOCKER_HOST_SUFFIX:-local}
       caddy.tls: internal
       caddy.reverse_proxy: "{{ upstreams }}"
     environment:
-      DOCUMENT_ROOT: /var/www/adminer
-      PHP_CONTAINER_NAME: adminer_php
-    networks:
-      - public
-      - private
+      ADMINER_PLUGINS: le-phare-pre-login-to-databases
