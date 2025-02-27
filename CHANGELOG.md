@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.6.0](https://github.com/le-phare/docker-stack/compare/v2.5.0...v2.6.0) (2025-02-27)
+
+
+### Features
+
+* **database:** use official adminer 4 image ([#38](https://github.com/le-phare/docker-stack/issues/38)) ([390ad0a](https://github.com/le-phare/docker-stack/commit/390ad0a5f205d72208930227b7d3e1514196d908))
+* **services:** add PostgreSQL 17 ([#35](https://github.com/le-phare/docker-stack/issues/35)) ([30c8f84](https://github.com/le-phare/docker-stack/commit/30c8f84faf5e5e3c9f03fe392473bfc39fc62396))
+
 ## [2.5.0](https://github.com/le-phare/docker-stack/compare/v2.4.0...v2.5.0) (2024-08-30)
 
 
