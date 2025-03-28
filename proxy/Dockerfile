@@ -1,8 +1,15 @@
-FROM caddy:2-alpine
+FROM --platform=$BUILDPLATFORM caddy:2-builder AS builder
 ARG TARGETOS
 ARG TARGETARCH
 
-ADD --chmod=500 "https://caddyserver.com/api/download?os=${TARGETOS}&arch=${TARGETARCH}&p=github.com/lucaslorentz/caddy-docker-proxy/v2&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy" "/usr/bin/caddy"
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} xcaddy build \
+    --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
+    --with github.com/dunglas/mercure/caddy \
+    --with github.com/dunglas/vulcain/caddy
+
+FROM caddy:2
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
 COPY Caddyfile /etc/caddy/Caddyfile
 
