@@ -1,8 +1,8 @@
-FROM --platform=$TARGETPLATFORM caddy:2-alpine
+FROM caddy:2-alpine
 ARG TARGETOS
 ARG TARGETARCH
 
-ADD --chmod=500 https://caddyserver.com/api/download?os=${TARGETOS}&arch=${TARGETARCH}&p=github.com/lucaslorentz/caddy-docker-proxy/v2&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy /usr/bin/caddy
+ADD --chmod=500 "https://caddyserver.com/api/download?os=${TARGETOS}&arch=${TARGETARCH}&p=github.com/lucaslorentz/caddy-docker-proxy/v2&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy" "/usr/bin/caddy"
 
 COPY Caddyfile /etc/caddy/Caddyfile
 
