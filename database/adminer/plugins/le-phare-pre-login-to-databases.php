@@ -17,5 +17,6 @@ class LePharePluginPreLoginToDatabases
     set_password('pgsql', 'pgsql_14', 'postgres', 'root');
     set_password('pgsql', 'pgsql_15', 'postgres', 'root');
     set_password('pgsql', 'pgsql_16', 'postgres', 'root');
+    set_password('pgsql', 'pgsql_17', 'postgres', 'root');
   }
 }
