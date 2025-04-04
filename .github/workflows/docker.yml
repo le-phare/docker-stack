@@ -64,3 +64,4 @@ jobs:
         id: create_release
         with:
           release-type: simple
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
