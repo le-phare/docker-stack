@@ -1,4 +1,5 @@
 <?php
+use function Adminer\set_password;
 
 /** Pre-login to Le Phare database servers */
 class LePharePluginPreLoginToDatabases
