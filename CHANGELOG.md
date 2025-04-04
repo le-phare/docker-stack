@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.7.0](https://github.com/le-phare/docker-stack/compare/v2.6.0...v2.7.0) (2025-04-04)
+
+
+### Features
+
+* **adminer:** use Adminer 5 ([#43](https://github.com/le-phare/docker-stack/issues/43)) ([eaaf044](https://github.com/le-phare/docker-stack/commit/eaaf044c2f9d119dc377cf5315c2e918a8aa0a1b))
+
+
+### Bug Fixes
+
+* **proxy:** use "latest" Docker tag ([#42](https://github.com/le-phare/docker-stack/issues/42)) ([20c7139](https://github.com/le-phare/docker-stack/commit/20c7139214802ca323cd2b5d32dcbba79419e5cd))
+
 ## [2.6.0](https://github.com/le-phare/docker-stack/compare/v2.5.0...v2.6.0) (2025-04-04)
 
 
