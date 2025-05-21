@@ -29,11 +29,12 @@ services:
       caddy.respond: |-
         / "Healthy" 200
     healthcheck:
-      test: [ "CMD", "wget", "-qO-", "http://localhost:2019/config" ]
-      interval: 10s
+      test: [ "CMD", "wget", "-qO-", "http://${DOCKER_HOST_SUFFIX:-local}" ]
+      interval: 1m
       timeout: 5s
-      retries: 5
+      retries: 3
       start_period: 30s
+      start_interval: 5s
 
   maildev:
     restart: always
@@ -47,11 +48,12 @@ services:
       caddy.tls: internal
       caddy.reverse_proxy: "{{upstreams}}"
     healthcheck:
-      test: [ "CMD", "wget", "-qO-", "http://localhost" ]
-      interval: 10s
+      test: [ "CMD", "wget", "-qO-", "http://maildev.${DOCKER_HOST_SUFFIX:-local}" ]
+      interval: 1m
       timeout: 5s
-      retries: 5
+      retries: 3
       start_period: 30s
+      start_interval: 5s
 
   memcached:
     restart: always
