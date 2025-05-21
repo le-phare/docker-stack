@@ -12,8 +12,11 @@ services:
       POSTGRES_PASSWORD: root
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 1m
       timeout: 5s
-      start_period: 10s
+      retries: 3
+      start_period: 30s
+      start_interval: 5s
 
 volumes:
   pgsql_10:
