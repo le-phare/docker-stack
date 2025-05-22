@@ -42,7 +42,11 @@ services:
     networks:
       public:
       private:
-    command: bin/maildev --web 80 --smtp 25 --outgoing-host smtp-relay.gmail.com --outgoing-secure
+    environment:
+      MAILDEV_OUTGOING_HOST: smtp-relay.gmail.com
+      MAILDEV_OUTGOING_SECURE: true
+      MAILDEV_SMTP_PORT: 25
+      MAILDEV_WEB_PORT: 80
     labels:
       caddy: maildev.${DOCKER_HOST_SUFFIX:-local}
       caddy.tls: internal
