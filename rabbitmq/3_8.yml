@@ -2,6 +2,7 @@ services:
   rabbitmq_3_8:
     image: rabbitmq:3.8.2-management
     hostname: rabbitmq
+    restart: unless-stopped
     networks:
       - private
     volumes:
