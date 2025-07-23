@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.1](https://github.com/le-phare/docker-stack/compare/v2.7.0...v2.7.1) (2025-07-23)
+
+
+### Bug Fixes
+
+* **adminer:** databases pre-login plugin: set required $_SESSION data ([#47](https://github.com/le-phare/docker-stack/issues/47)) ([e975221](https://github.com/le-phare/docker-stack/commit/e9752213f851e9c69dfd762436b193e1d2bbfa17))
+* **rabbitmq:** add missing restart instruction ([c7286ec](https://github.com/le-phare/docker-stack/commit/c7286ec105c728268c38b25adf4769e1d8666419))
+
 ## [2.7.0](https://github.com/le-phare/docker-stack/compare/v2.6.0...v2.7.0) (2025-04-04)
 
 
