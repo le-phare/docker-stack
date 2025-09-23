@@ -1,0 +1,21 @@
+services:
+  rabbitmq_3_10:
+    image: rabbitmq:3.10-management
+    hostname: rabbitmq
+    restart: unless-stopped
+    networks:
+      - private
+    volumes:
+      - rabbitmq_3_10:/var/lib/rabbitmq
+    environment:
+      VIRTUAL_HOST: rabbitmq.${DOCKER_HOST_SUFFIX:-local}
+      VIRTUAL_PORT: 15672
+    labels:
+      caddy: rabbitmq.${DOCKER_HOST_SUFFIX:-local}
+      caddy.tls: internal
+      caddy.reverse_proxy: '{{ upstreams 15672 }}'
+    ports:
+      - 8083:15672 # Visit https://rabbitmq.${DOCKER_HOST_SUFFIX}:8083 with guest / guest
+
+volumes:
+  rabbitmq_3_10:
