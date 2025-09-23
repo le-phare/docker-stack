@@ -11,7 +11,7 @@ services:
       VIRTUAL_HOST: rabbitmq.${DOCKER_HOST_SUFFIX:-local}
       VIRTUAL_PORT: 15672
     labels:
-      caddy: rabbitmq.lph
+      caddy: rabbitmq.${DOCKER_HOST_SUFFIX:-local}
       caddy.tls: internal
       caddy.reverse_proxy: '{{ upstreams 15672 }}'
     ports:
