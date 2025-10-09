@@ -10,6 +10,7 @@ cd docker-stack
 ```
 
 ### Configuration
+
 You also need to set the DOCKER_HOST_SUFFIX env var in your shell
 
 	echo 'export DOCKER_HOST_SUFFIX="eri.lph"' >> ~/.bash_profile
@@ -19,7 +20,7 @@ cp .env.dist .env
 docker compose up -d
 ```
 
-Github Container Registry :
+GitHub Container Registry :
 
 1. Go to [Settings / Developer Settings / Personal Access Token](https://github.com/settings/tokens/new?scopes=write:packages)
 2. Enter "Docker stack" in the **Name** field and check **write:packages** and **read:packages**
@@ -46,36 +47,33 @@ Restart your browsers !
 
 The base stack contains the minimal configuration related to web development.
 
- - caddy
- - adminer
- - maildev
- - memcached
+- Adminer
+- Caddy
+- MailDev
+- Memcached
 
 ## Compose your stack
 
-The default configuration include 3 databases containers : mysql 5, postgres 9 and postgres 17. You can change the loaded containers by changing the `COMPOSE_FILE` environment variable in the `.env` file.
+The default configuration include 3 databases containers : MySQL 5, PostgreSQL 9 and PostgreSQL 17.
+
+You can change the loaded containers by changing the `COMPOSE_FILE` environment variable in the `.env` file.
 
 The default configuration can be found in the `.env.dist` file.
 
-
 The repository currently supports these databases:
 
- - postgresql 9, 10, 11, 12, 13, 14, 15, 16, 17
- - mysql 5
- - mariadb 10
+- PostgreSQL 9, 10, 11, 12, 13, 14, 15, 16, 17
+- MySQL 5
+- MariaDB 10
 
 The repository currently supports these message brokers:
 
- - rabbitmq 3.8
+- RabbitMQ 3.8
 
-An optional watchtower service is available to update docker images automatically. Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file (default is `0 0 17 * * *`). You should also [login to your docker hub account](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) to prevent rate limit issues.
+An optional watchtower service is available to update docker images automatically:
+Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file
+(default is `0 0 17 * * *`).
 
-## Troubleshooting
-
-- If setup.sh respond `trust: install is not supported on this system`:
-
-```shell
-    sudo trust anchor --store /var/lib/docker/volumes/dev_caddy_data/_data/caddy/pki/authorities/local/root.crt
-    sudo trust anchor --store /var/lib/docker/volumes/dev_caddy_data/_data/caddy/pki/authorities/local/intermediate.crt
-    sudo update-ca-trust
-```
+You should also
+[login to your docker hub account](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token)
+to prevent rate limit issues.
