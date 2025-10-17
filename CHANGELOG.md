@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.8.0](https://github.com/le-phare/docker-stack/compare/v2.7.1...v2.8.0) (2025-10-17)
+
+
+### Features
+
+* add RabbitMQ 3.10 ([#51](https://github.com/le-phare/docker-stack/issues/51)) ([e8aab25](https://github.com/le-phare/docker-stack/commit/e8aab25e21bcdd24987712c1d72efeb57ad76a08))
+* add RedisInsight ([#53](https://github.com/le-phare/docker-stack/issues/53)) ([8592f72](https://github.com/le-phare/docker-stack/commit/8592f72cea48d482692a86c11db677c42e4dcbcf))
+
 ## [2.7.1](https://github.com/le-phare/docker-stack/compare/v2.7.0...v2.7.1) (2025-07-23)
 
 
