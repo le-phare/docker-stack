@@ -1,0 +1,16 @@
+services:
+  redisinsight:
+    image: redis/redisinsight:latest
+    restart: unless-stopped
+    volumes:
+      - redisinsight:/data
+    networks:
+      - private
+      - public
+    labels:
+      caddy: 'redisinsight.lph, redisinsight.${DOCKER_HOST_SUFFIX:-local}'
+      caddy.tls: internal
+      caddy.reverse_proxy: "{{ upstreams 5540 }}"
+
+volumes:
+  redisinsight:

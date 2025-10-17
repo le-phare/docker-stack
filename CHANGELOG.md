@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.8.0](https://github.com/le-phare/docker-stack/compare/v2.7.1...v2.8.0) (2025-10-17)
+
+### Features
+
+* add optional redisinsight service ([todo](todo))
+
 ## [2.7.1](https://github.com/le-phare/docker-stack/compare/v2.7.0...v2.7.1) (2025-07-23)
 
 

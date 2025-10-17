@@ -68,6 +68,11 @@ The repository currently supports these message brokers:
 
  - rabbitmq 3.8
 
+[Redisinsight](https://redis.io/insight/) is available:
+
+ - Add `./redisinsight.yml` to your `.env`
+ - Got to [redisinsight.${DOCKER_HOST_SUFFIX}.lph](https://redisinsight.${DOCKER_HOST_SUFFIX}.lph/) or [redisinsight.lph](https://redisinsight.lph/)
+
 An optional watchtower service is available to update docker images automatically. Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file (default is `0 0 17 * * *`). You should also [login to your docker hub account](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) to prevent rate limit issues.
 
 ## Troubleshooting
