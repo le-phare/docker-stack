@@ -10,11 +10,10 @@ cd docker-stack
 ```
 
 ### Configuration
-You also need to set the DOCKER_HOST_SUFFIX env var in your shell
-
-	echo 'export DOCKER_HOST_SUFFIX="eri.lph"' >> ~/.bash_profile
+You need to set the `DOCKER_HOST_SUFFIX` env var in your shell, then copy `.env.dist` to `.env`.
 
 ```shell
+echo 'export DOCKER_HOST_SUFFIX="change_me"' >> ~/.bash_profile
 cp .env.dist .env
 docker compose up -d
 ```
@@ -40,7 +39,7 @@ The message `Login successed` should appear.
 ./setup.sh
 ```
 
-Restart your browsers !
+Restart your browsers!
 
 ## The base stack
 
@@ -71,7 +70,7 @@ The repository currently supports these message brokers:
 [Redisinsight](https://redis.io/insight/) is available:
 
  - Add `./redis/redisinsight.yml` to your `.env`
- - Got to [redisinsight.${DOCKER_HOST_SUFFIX}.lph](https://redisinsight.${DOCKER_HOST_SUFFIX}.lph/) or [redisinsight.lph](https://redisinsight.lph/)
+ - Go to `https://redisinsight.${DOCKER_HOST_SUFFIX}`
 
 An optional watchtower service is available to update docker images automatically. Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file (default is `0 0 17 * * *`). You should also [login to your docker hub account](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) to prevent rate limit issues.
 

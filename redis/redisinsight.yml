@@ -8,7 +8,7 @@ services:
       - private
       - public
     labels:
-      caddy: 'redisinsight.lph, redisinsight.${DOCKER_HOST_SUFFIX:-local}'
+      caddy: 'redisinsight.${DOCKER_HOST_SUFFIX:-local}'
       caddy.tls: internal
       caddy.reverse_proxy: "{{ upstreams 5540 }}"
 

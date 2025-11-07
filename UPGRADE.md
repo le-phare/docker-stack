@@ -36,7 +36,7 @@ It use docker labels instead of environment vars:
    web:
      image: lephare/apache:2.4
      environments:
-       VIRTUAL_HOST: mydomain.nla.lph
+       VIRTUAL_HOST: mydomain.${DOCKER_HOST_SUFFIX:-local}
 -      HTTPS_REDIRECT: nohttp
 -      VIRTUAL_PORT: 8080
 +   labels:
