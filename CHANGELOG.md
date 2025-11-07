@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.1](https://github.com/le-phare/docker-stack/compare/v2.8.0...v2.8.1) (2025-11-07)
+
+
+### Bug Fixes
+
+* **caddy:** TLS certificates trust on all platforms ([#34](https://github.com/le-phare/docker-stack/issues/34)) ([004435e](https://github.com/le-phare/docker-stack/commit/004435e1cf24b31b1f99e4400515ec4a1725f220))
+
 ## [2.8.0](https://github.com/le-phare/docker-stack/compare/v2.7.1...v2.8.0) (2025-10-17)
 
 
