@@ -17,6 +17,10 @@ services:
       - target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
+      # Caddy admin API
+      - target: 2019
+        published: ${CADDY_ADMIN_PORT:-2019}
+        protocol: tcp
     environment:
       CADDY_INGRESS_NETWORKS: dev_public
     volumes:
