@@ -60,7 +60,7 @@ The default configuration can be found in the `.env.dist` file.
 
 The repository currently supports these databases:
 
-- PostgreSQL 9, 10, 11, 12, 13, 14, 15, 16, 17
+- PostgreSQL 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
 - MySQL 5
 - MariaDB 10
 

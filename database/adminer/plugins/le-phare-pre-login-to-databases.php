@@ -6,7 +6,7 @@
 class LePharePluginPreLoginToDatabases
 {
   const array MYSQL_HOSTS = ['mysql_5', 'mariadb_10'];
-  const array POSTGRESQL_HOSTS = ['pgsql_9', 'pgsql_10', 'pgsql_11', 'pgsql_12', 'pgsql_13', 'pgsql_14', 'pgsql_15', 'pgsql_16', 'pgsql_17'];
+  const array POSTGRESQL_HOSTS = ['pgsql_9', 'pgsql_10', 'pgsql_11', 'pgsql_12', 'pgsql_13', 'pgsql_14', 'pgsql_15', 'pgsql_16', 'pgsql_17', 'pgsql_18'];
 
   function __construct()
   {

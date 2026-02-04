@@ -1,0 +1,22 @@
+services:
+  pgsql_18:
+    restart: unless-stopped
+    image: postgres:18
+    networks:
+      private:
+    volumes:
+      - pgsql_18:/var/lib/postgres/data
+    environment:
+      PGDATA: /var/lib/postgres/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 1m
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+      start_interval: 5s
+
+volumes:
+  pgsql_18:
