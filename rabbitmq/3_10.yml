@@ -1,6 +1,6 @@
 services:
   rabbitmq_3_10:
-    image: rabbitmq:3.10-management
+    image: docker.io/rabbitmq:3.10-management
     hostname: rabbitmq
     restart: unless-stopped
     networks:

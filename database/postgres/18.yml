@@ -1,7 +1,7 @@
 services:
   pgsql_18:
     restart: unless-stopped
-    image: postgres:18
+    image: docker.io/postgres:18
     networks:
       private:
     volumes:

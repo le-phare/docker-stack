@@ -42,7 +42,7 @@ services:
 
   maildev:
     restart: always
-    image: maildev/maildev
+    image: docker.io/maildev/maildev
     networks:
       public:
       private:
@@ -65,7 +65,7 @@ services:
 
   memcached:
     restart: always
-    image: memcached:1.6-alpine
+    image: docker.io/memcached:1.6-alpine
     networks:
       private:
 

@@ -34,7 +34,7 @@ It use docker labels instead of environment vars:
 ```diff
  services:
    web:
-     image: lephare/apache:2.4
+     image: docker.io/lephare/apache:2.4
      environments:
        VIRTUAL_HOST: mydomain.${DOCKER_HOST_SUFFIX:-local}
 -      HTTPS_REDIRECT: nohttp
