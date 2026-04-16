@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.0](https://github.com/le-phare/docker-stack/compare/v2.8.1...v2.9.0) (2026-02-05)
+
+
+### Features
+
+* Add Postgres 18 ([#60](https://github.com/le-phare/docker-stack/issues/60)) ([39fa124](https://github.com/le-phare/docker-stack/commit/39fa124c997340b45d73243276bc2f1dec818c8b))
+
 ## [2.8.1](https://github.com/le-phare/docker-stack/compare/v2.8.0...v2.8.1) (2025-11-07)
 
 
