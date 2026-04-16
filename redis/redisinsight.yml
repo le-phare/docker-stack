@@ -1,6 +1,6 @@
 services:
   redisinsight:
-    image: redis/redisinsight:latest
+    image: docker.io/redis/redisinsight:latest
     restart: unless-stopped
     volumes:
       - redisinsight:/data

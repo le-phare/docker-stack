@@ -1,7 +1,7 @@
 services:
   mariadb_10:
     restart: unless-stopped
-    image: mariadb:10
+    image: docker.io/mariadb:10
     networks:
       private:
     environment:

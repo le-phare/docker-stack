@@ -1,6 +1,6 @@
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:latest
+    image: docker.io/gitlab/gitlab-runner:latest
     restart: always
     volumes:
       - gitlab-runner:/etc/gitlab-runner

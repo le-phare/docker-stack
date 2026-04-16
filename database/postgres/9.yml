@@ -1,6 +1,6 @@
 services:
   pgsql_9:
-    image: postgres:9
+    image: docker.io/postgres:9
     restart: unless-stopped
     networks:
       private:

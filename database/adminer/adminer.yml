@@ -1,7 +1,7 @@
 services:
   adminer:
     restart: unless-stopped
-    image: adminer:${ADMINER_VERSION-5}
+    image: docker.io/adminer:${ADMINER_VERSION-5}
     volumes:
       - "./database/adminer/plugins/le-phare-pre-login-to-databases.php:/var/www/html/plugins/le-phare-pre-login-to-databases.php:ro"
     networks:

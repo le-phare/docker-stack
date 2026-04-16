@@ -1,6 +1,6 @@
 services:
   watchtower:
-    image: nickfedor/watchtower
+    image: docker.io/nickfedor/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro

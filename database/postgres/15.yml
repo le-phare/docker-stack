@@ -1,7 +1,7 @@
 services:
   pgsql_15:
     restart: unless-stopped
-    image: postgres:15
+    image: docker.io/postgres:15
     networks:
       private:
     volumes:

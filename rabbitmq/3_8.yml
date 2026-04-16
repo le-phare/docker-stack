@@ -1,6 +1,6 @@
 services:
   rabbitmq_3_8:
-    image: rabbitmq:3.8.2-management
+    image: docker.io/rabbitmq:3.8.2-management
     hostname: rabbitmq
     restart: unless-stopped
     networks:
