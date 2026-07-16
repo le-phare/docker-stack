@@ -1,0 +1,21 @@
+services:
+  rabbitmq_4:
+    image: rabbitmq:4.1-management # RabbitMQ 4.x parle AMQP 0.9.1 (compatible ext-amqp / mvo2-api)
+    hostname: rabbitmq_4 # hostname distinct de v3 (`rabbitmq`) pour éviter l'ambiguïté DNS sur dev_private
+    restart: unless-stopped
+    networks:
+      - private
+    volumes:
+      - rabbitmq_4:/var/lib/rabbitmq
+    environment:
+      VIRTUAL_HOST: rabbitmq4.${DOCKER_HOST_SUFFIX:-local}
+      VIRTUAL_PORT: 15672
+    labels:
+      caddy: rabbitmq4.${DOCKER_HOST_SUFFIX:-local}
+      caddy.tls: internal
+      caddy.reverse_proxy: '{{ upstreams 15672 }}'
+    ports:
+      - 8084:15672 # UI mgmt v4 (v3 = 8083). Visit https://rabbitmq4.${DOCKER_HOST_SUFFIX}:8084 (guest / guest)
+
+volumes:
+  rabbitmq_4:
