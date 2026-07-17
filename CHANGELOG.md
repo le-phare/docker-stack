@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.1](https://github.com/le-phare/docker-stack/compare/v2.9.0...v2.9.1) (2026-07-17)
+
+
+### Bug Fixes
+
+* **docker:** don't restart manually stopped services ([3640d3d](https://github.com/le-phare/docker-stack/commit/3640d3de2c17eca3ae8d5060a29a8af63438547a))
+
 ## [2.9.0](https://github.com/le-phare/docker-stack/compare/v2.8.1...v2.9.0) (2026-02-05)
 
 
