@@ -4,6 +4,7 @@ services:
     image: docker.io/mariadb:10
     networks:
       private:
+        aliases: [mariadb-10]
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:

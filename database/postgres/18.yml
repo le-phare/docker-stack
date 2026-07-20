@@ -4,6 +4,7 @@ services:
     image: docker.io/postgres:18
     networks:
       private:
+        aliases: [pgsql-18]
     volumes:
       - pgsql_18:/var/lib/postgres/data
     environment:

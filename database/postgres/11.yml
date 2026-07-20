@@ -4,6 +4,7 @@ services:
     image: docker.io/postgres:11
     networks:
       private:
+        aliases: [pgsql-11]
     volumes:
       - pgsql_11:/var/lib/postgres/data
     environment:

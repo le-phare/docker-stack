@@ -4,6 +4,7 @@ services:
     image: docker.io/postgres:15
     networks:
       private:
+        aliases: [pgsql-15]
     volumes:
       - pgsql_15:/var/lib/postgres/data
     environment:

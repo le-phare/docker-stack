@@ -4,7 +4,8 @@ services:
     hostname: rabbitmq_4
     restart: unless-stopped
     networks:
-      - private
+      private:
+        aliases: [rabbitmq-4]
     volumes:
       - rabbitmq_4:/var/lib/rabbitmq
     environment:
