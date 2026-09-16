@@ -26,7 +26,7 @@ if [ "$(uname -s)" != "Darwin" ]; then
 
   /tmp/caddy trust
 else
-  sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /usr/local/share/ca-certificates/Le_Phare_Docker_stack_Caddy_root.crt
+  sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /usr/local/share/ca-certificates/root.crt
 fi
 
 echo "Certificats Caddy installés avec succès !"
