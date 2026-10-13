@@ -73,6 +73,13 @@ The repository currently supports these message brokers:
  - Add `./redis/redisinsight.yml` to your `.env`
  - Got to [redisinsight.${DOCKER_HOST_SUFFIX}.lph](https://redisinsight.${DOCKER_HOST_SUFFIX}.lph/) or [redisinsight.lph](https://redisinsight.lph/)
 
+[Aspire Dashboard](https://aspire.dev/dashboard/standalone/) is available as a local OpenTelemetry backend (traces, metrics, logs, GenAI spans):
+
+ - Add `observability/aspire.yml` to your `.env`
+ - Go to [aspire.${DOCKER_HOST_SUFFIX}](https://aspire.${DOCKER_HOST_SUFFIX}/)
+ - Send OTLP data to `localhost:4317` (gRPC) or `localhost:4318` (HTTP) from the host, or to `aspire-dashboard:18889` (gRPC) or `aspire-dashboard:18890` (HTTP) from containers on the private network
+ - Telemetry is kept in memory only and OTLP endpoints are unauthenticated (bound to `127.0.0.1`): local use only
+
 An optional watchtower service is available to update docker images automatically:
 Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file
 (default is `0 0 17 * * *`).
