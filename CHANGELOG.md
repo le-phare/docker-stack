@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.10.0](https://github.com/le-phare/docker-stack/compare/v2.9.1...v2.10.0) (2026-10-26)
+
+
+### Features
+
+* add RabbitMQ 4.1 ([71b0c7d](https://github.com/le-phare/docker-stack/commit/71b0c7d52815102527a6a461ed206cdfeba8cec9))
+
+
+### Bug Fixes
+
+* **adminer:** lock to v5.4.2 to prevent BC-break for now ([1b1bf33](https://github.com/le-phare/docker-stack/commit/1b1bf33d88ca30ab7f3841b69f1b4702ef7a0b2f))
+* **adminer:** use Adminer 6 ([#69](https://github.com/le-phare/docker-stack/issues/69)) ([39d8bcb](https://github.com/le-phare/docker-stack/commit/39d8bcb3d3ae8e7c821d7f173e729fe54bafd807))
+* **adminer:** use aliased database containers names (with hyphens) ([c6a617d](https://github.com/le-phare/docker-stack/commit/c6a617d16eb3fec3000a14e0de5f4fb1fb53fad5))
+* **setup:** wrong filename ([1decd73](https://github.com/le-phare/docker-stack/commit/1decd73f22bdee9086591fb97281c3ec7351283c))
+
 ## [2.9.1](https://github.com/le-phare/docker-stack/compare/v2.9.0...v2.9.1) (2026-07-17)
 
 
