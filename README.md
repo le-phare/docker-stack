@@ -76,11 +76,11 @@ The repository currently supports these message brokers:
 [Aspire Dashboard](https://aspire.dev/dashboard/standalone/) is available as a local OpenTelemetry backend (traces, metrics, logs, GenAI spans):
 
  - Add `observability/aspire.yml` to your `.env`
- - Go to [aspire.${DOCKER_HOST_SUFFIX}](https://aspire.${DOCKER_HOST_SUFFIX}/) and log in with the token printed by `docker compose logs aspire-dashboard | grep login?t=` (a new one at each start), or set your own `ASPIRE_DASHBOARD_TOKEN` in your `.env`
+ - Go to [aspire.${DOCKER_HOST_SUFFIX}](https://aspire.${DOCKER_HOST_SUFFIX}/) and log in with the token printed by `docker compose logs aspire-dashboard | grep login?t=` (a new one at each start): the printed `localhost:18888` URL is not published, open `https://aspire.${DOCKER_HOST_SUFFIX}/login?t=<token>` instead, or set your own `ASPIRE_DASHBOARD_TOKEN` in your `.env`
  - Send OTLP data to `localhost:4317` (gRPC) or `localhost:4318` (HTTP) from the host, or to `aspire-dashboard:18889` (gRPC) or `aspire-dashboard:18890` (HTTP) from containers on the private network
  - OTLP endpoints are unauthenticated and bound to `127.0.0.1`; the dashboard telemetry API is disabled
- - Telemetry is kept in a temporary database on a tmpfs, lost when the container stops; the container memory is capped by `ASPIRE_DASHBOARD_MEM_LIMIT` (default `4g`)
- - To send Claude Code traces, set in your shell or `~/.claude/settings.json` (`env`): `CLAUDE_CODE_ENABLE_TELEMETRY=1`, `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1`, `OTEL_TRACES_EXPORTER=otlp`, `OTEL_METRICS_EXPORTER=otlp`, `OTEL_LOGS_EXPORTER=otlp`, `OTEL_EXPORTER_OTLP_PROTOCOL=grpc` and `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317`
+ - Telemetry is kept in a temporary database on a tmpfs, lost whenever the container stops or restarts, including when it hits its memory limit; the container memory is capped by `ASPIRE_DASHBOARD_MEM_LIMIT` (default `4g`)
+ - To send Claude Code traces, set in your shell or `~/.claude/settings.json` (`env`): `CLAUDE_CODE_ENABLE_TELEMETRY=1`, `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1`, `OTEL_TRACES_EXPORTER=otlp`, `OTEL_METRICS_EXPORTER=otlp`, `OTEL_LOGS_EXPORTER=otlp`, `OTEL_EXPORTER_OTLP_PROTOCOL=grpc` and `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317` (or your `OTLP_GRPC_PORT`)
 
 To keep telemetry on disk, add an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) in front of Aspire:
 
@@ -101,6 +101,7 @@ Observability roadmap:
  - Validate `OTEL_TELEMETRY_MAX_*`: `0` disables the matching cleanup and a `MAX_MB` below one export batch drops that batch from disk
  - Expire active telemetry files by age: rotation is size-based only, so a low-volume signal keeps data well beyond `OTEL_TELEMETRY_MAX_DAYS`
  - Gate the GenAI mapping on `gen_ai.provider.name` or the span name rather than the deprecated `gen_ai.system`, so failed LLM calls get `gen_ai.operation.name` too
+ - Bound the collector memory (`memory_limiter` processor and `mem_limit`), and cap batches below Aspire's 4 MB gRPC limit (`send_batch_max_size`): the collector accepts up to 64 MiB per request, and a larger batch would reach the files but not Aspire
 
 An optional watchtower service is available to update docker images automatically:
 Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file

@@ -3,4 +3,5 @@
 **/*.override.yml
 .env
 
-/observability/telemetry/
+/observability/telemetry/*
+!/observability/telemetry/.gitignore
