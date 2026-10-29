@@ -89,6 +89,10 @@ To keep telemetry on disk, add an [OpenTelemetry Collector](https://opentelemetr
  - GenAI spans from Claude Code (`CLAUDE_CODE_ENABLE_TELEMETRY=1`) get standard `gen_ai.usage.*` attributes, so token counts show up in Aspire's GenAI visualizer
  - For your own LLM calls, set `OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT=true` (where your SDK supports it) to see prompts and completions in the GenAI visualizer
 
+Observability roadmap:
+
+ - Add a reliable `gen_ai.usage.cost` attribute to Claude Code spans: a price table in the collector underestimates cache writes, since Claude Code's 1-hour cache is billed 2× input, not 1.25×; reusing the `cost_usd` that Claude Code reports in its `claude_code.api_request` log events would avoid hardcoded prices
+
 An optional watchtower service is available to update docker images automatically:
 Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file
 (default is `0 0 17 * * *`).

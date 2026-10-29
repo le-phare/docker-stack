@@ -21,21 +21,6 @@ processors:
           - set(attributes["gen_ai.usage.output_tokens"], attributes["output_tokens"]) where attributes["gen_ai.usage.output_tokens"] == nil and attributes["output_tokens"] != nil
           - set(attributes["gen_ai.usage.cache_read.input_tokens"], attributes["cache_read_tokens"]) where attributes["cache_read_tokens"] != nil
           - set(attributes["gen_ai.usage.cache_creation.input_tokens"], attributes["cache_creation_tokens"]) where attributes["cache_creation_tokens"] != nil
-  transform/cost:
-    trace_statements:
-      - context: span
-        conditions:
-          - attributes["model"] != nil and attributes["input_tokens"] != nil and attributes["output_tokens"] != nil and attributes["cache_read_tokens"] != nil and attributes["cache_creation_tokens"] != nil
-        statements:
-          # $/MTok: input, output, cache read, cache write (5m TTL = 1.25 × input; 1h writes cost 2× and are underestimated)
-          - set(attributes["gen_ai.usage.cost"], (Double(attributes["input_tokens"]) * 4.0 + Double(attributes["output_tokens"]) * 20.0 + Double(attributes["cache_read_tokens"]) * 0.20 + Double(attributes["cache_creation_tokens"]) * 5.0) / 1000000.0) where IsMatch(attributes["model"], "^claude-opus-5-5")
-          - set(attributes["gen_ai.usage.cost"], (Double(attributes["input_tokens"]) * 10.0 + Double(attributes["output_tokens"]) * 50.0 + Double(attributes["cache_read_tokens"]) * 0.25 + Double(attributes["cache_creation_tokens"]) * 12.5) / 1000000.0) where IsMatch(attributes["model"], "^claude-fable-5-1")
-          - set(attributes["gen_ai.usage.cost"], (Double(attributes["input_tokens"]) * 2.0 + Double(attributes["output_tokens"]) * 10.0 + Double(attributes["cache_read_tokens"]) * 0.20 + Double(attributes["cache_creation_tokens"]) * 2.5) / 1000000.0) where IsMatch(attributes["model"], "^claude-sonnet-5(-5)?(\\[1m\\])?$")
-          - set(attributes["gen_ai.usage.cost"], (Double(attributes["input_tokens"]) * 5.0 + Double(attributes["output_tokens"]) * 25.0 + Double(attributes["cache_read_tokens"]) * 0.50 + Double(attributes["cache_creation_tokens"]) * 6.25) / 1000000.0) where IsMatch(attributes["model"], "^claude-opus-5(\\[1m\\])?$")
-          - set(attributes["gen_ai.usage.cost"], (Double(attributes["input_tokens"]) * 0.10 + Double(attributes["output_tokens"]) * 0.50 + Double(attributes["cache_read_tokens"]) * 0.01 + Double(attributes["cache_creation_tokens"]) * 0.125) / 1000000.0) where IsMatch(attributes["model"], "^claude-haiku-5-5")
-          # Haiku 5.5: prompts above 100K tokens are billed 5×
-          - set(attributes["gen_ai.usage.cost"], attributes["gen_ai.usage.cost"] * 5.0) where IsMatch(attributes["model"], "^claude-haiku-5-5") and attributes["gen_ai.usage.cost"] != nil and Int(attributes["input_tokens"]) + Int(attributes["cache_read_tokens"]) + Int(attributes["cache_creation_tokens"]) > 100000
-          - set(attributes["gen_ai.usage.cost"], attributes["gen_ai.usage.cost"] * 2.0) where attributes["speed"] == "fast" and attributes["gen_ai.usage.cost"] != nil
 
 exporters:
   otlp_grpc/aspire:
@@ -60,7 +45,7 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [transform/genai, transform/cost, batch]
+      processors: [transform/genai, batch]
       exporters: [otlp_grpc/aspire, file/traces]
     metrics:
       receivers: [otlp]
