@@ -76,9 +76,10 @@ The repository currently supports these message brokers:
 [Aspire Dashboard](https://aspire.dev/dashboard/standalone/) is available as a local OpenTelemetry backend (traces, metrics, logs, GenAI spans):
 
  - Add `observability/aspire.yml` to your `.env`
- - Go to [aspire.${DOCKER_HOST_SUFFIX}](https://aspire.${DOCKER_HOST_SUFFIX}/)
+ - Go to [aspire.${DOCKER_HOST_SUFFIX}](https://aspire.${DOCKER_HOST_SUFFIX}/) and log in with the token printed by `docker compose logs aspire-dashboard | grep login?t=` (a new one at each start), or set your own `ASPIRE_DASHBOARD_TOKEN` in your `.env`
  - Send OTLP data to `localhost:4317` (gRPC) or `localhost:4318` (HTTP) from the host, or to `aspire-dashboard:18889` (gRPC) or `aspire-dashboard:18890` (HTTP) from containers on the private network
- - Telemetry is kept in memory only and OTLP endpoints are unauthenticated (bound to `127.0.0.1`): local use only
+ - OTLP endpoints are unauthenticated and bound to `127.0.0.1`; the dashboard telemetry API is disabled
+ - Telemetry is kept in a temporary database on a tmpfs, lost when the container stops; the container memory is capped by `ASPIRE_DASHBOARD_MEM_LIMIT` (default `4g`)
 
 To keep telemetry on disk, add an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) in front of Aspire:
 

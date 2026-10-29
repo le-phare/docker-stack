@@ -2,11 +2,17 @@ services:
   aspire-dashboard:
     image: mcr.microsoft.com/aspire/dashboard:${ASPIRE_DASHBOARD_VERSION-13}
     restart: unless-stopped
+    mem_limit: ${ASPIRE_DASHBOARD_MEM_LIMIT:-4g}
+    tmpfs:
+      - /tmp
     networks:
       - private
       - public
     environment:
-      ASPIRE_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: true
+      DASHBOARD__FRONTEND__AUTHMODE: BrowserToken
+      DASHBOARD__FRONTEND__BROWSERTOKEN: ${ASPIRE_DASHBOARD_TOKEN:-}
+      DASHBOARD__OTLP__AUTHMODE: Unsecured
+      DASHBOARD__API__DISABLED: true
       ASPNETCORE_FORWARDEDHEADERS_ENABLED: true
     ports:
       - "127.0.0.1:${OTLP_GRPC_PORT:-4317}:18889"
