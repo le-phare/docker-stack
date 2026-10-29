@@ -1,0 +1,17 @@
+services:
+  otel-collector:
+    image: docker.io/otel/opentelemetry-collector-contrib:${OTEL_COLLECTOR_VERSION-0.162.0}
+    restart: unless-stopped
+    user: "${OTEL_COLLECTOR_UID:-1000}:${OTEL_COLLECTOR_GID:-1000}"
+    networks:
+      - private
+    ports:
+      - "127.0.0.1:${OTLP_GRPC_PORT:-4317}:4317"
+      - "127.0.0.1:${OTLP_HTTP_PORT:-4318}:4318"
+    volumes:
+      - ./observability/collector/config.yaml:/etc/otelcol-contrib/config.yaml:ro
+      - ${OTEL_TELEMETRY_DIR:-./observability/telemetry}:/telemetry
+
+  aspire-dashboard:
+    ports: !reset []
+

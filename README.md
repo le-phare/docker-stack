@@ -80,6 +80,15 @@ The repository currently supports these message brokers:
  - Send OTLP data to `localhost:4317` (gRPC) or `localhost:4318` (HTTP) from the host, or to `aspire-dashboard:18889` (gRPC) or `aspire-dashboard:18890` (HTTP) from containers on the private network
  - Telemetry is kept in memory only and OTLP endpoints are unauthenticated (bound to `127.0.0.1`): local use only
 
+To keep telemetry on disk, add an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) in front of Aspire:
+
+ - Add `observability/collector.yml` to your `.env`, **after** `observability/aspire.yml`
+ - The collector takes over `localhost:4317` / `localhost:4318`, forwards everything to Aspire and writes OTLP JSON lines to `observability/telemetry/` (`traces.jsonl`, `metrics.jsonl`, `logs.jsonl`, rotated at 100 MB, kept 30 days)
+ - Files are written as UID/GID `1000`; set `OTEL_COLLECTOR_UID` / `OTEL_COLLECTOR_GID` if yours differ, or `OTEL_TELEMETRY_DIR` to write elsewhere
+ - Query them with `jq` or [DuckDB](https://duckdb.org/), e.g. span names: `jq -r '.resourceSpans[].scopeSpans[].spans[].name' observability/telemetry/traces.jsonl | sort | uniq -c`
+ - GenAI spans from Claude Code (`CLAUDE_CODE_ENABLE_TELEMETRY=1`) get standard `gen_ai.usage.*` attributes, so token counts show up in Aspire's GenAI visualizer
+ - For your own LLM calls, set `OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT=true` (where your SDK supports it) to see prompts and completions in the GenAI visualizer
+
 An optional watchtower service is available to update docker images automatically:
 Add `watchtower.yml` to `COMPOSE_FILE` variable and set a schedule with `WATCHTOWER_SCHEDULE` variable in your `.env` file
 (default is `0 0 17 * * *`).
