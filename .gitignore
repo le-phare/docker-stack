@@ -2,3 +2,5 @@
 
 **/*.override.yml
 .env
+
+/observability/telemetry/
