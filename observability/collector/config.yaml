@@ -30,9 +30,9 @@ exporters:
   file/traces:
     path: /telemetry/traces.jsonl
     rotation: &rotation
-      max_megabytes: 100
-      max_days: 30
-      max_backups: 20
+      max_megabytes: ${env:OTEL_TELEMETRY_MAX_MB}
+      max_days: ${env:OTEL_TELEMETRY_MAX_DAYS}
+      max_backups: ${env:OTEL_TELEMETRY_MAX_BACKUPS}
       localtime: true
   file/metrics:
     path: /telemetry/metrics.jsonl

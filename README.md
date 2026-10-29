@@ -83,10 +83,12 @@ The repository currently supports these message brokers:
 To keep telemetry on disk, add an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) in front of Aspire:
 
  - Add `observability/collector.yml` to your `.env`, **after** `observability/aspire.yml`
- - The collector takes over `localhost:4317` / `localhost:4318`, forwards everything to Aspire and writes OTLP JSON lines to `observability/telemetry/` (`traces.jsonl`, `metrics.jsonl`, `logs.jsonl`, rotated at 100 MB, kept 30 days)
+ - The collector takes over `localhost:4317` / `localhost:4318`, forwards everything to Aspire and writes OTLP JSON lines to `observability/telemetry/` (`traces.jsonl`, `metrics.jsonl`, `logs.jsonl`)
+ - Each file is rotated when it reaches `OTEL_TELEMETRY_MAX_MB` (default `100`); rotated files older than `OTEL_TELEMETRY_MAX_DAYS` (default `30`) or beyond the newest `OTEL_TELEMETRY_MAX_BACKUPS` (default `20`, per signal) are deleted at the next rotation or collector start, so the default disk usage is capped around 6 GB
  - Files are written as UID/GID `1000`; set `OTEL_COLLECTOR_UID` / `OTEL_COLLECTOR_GID` if yours differ, or `OTEL_TELEMETRY_DIR` to write elsewhere
  - Query them with `jq` or [DuckDB](https://duckdb.org/), e.g. span names: `jq -r '.resourceSpans[].scopeSpans[].spans[].name' observability/telemetry/traces.jsonl | sort | uniq -c`
  - GenAI spans from Claude Code (`CLAUDE_CODE_ENABLE_TELEMETRY=1`) get standard `gen_ai.usage.*` attributes, so token counts show up in Aspire's GenAI visualizer
+ - With `OTEL_LOG_USER_PROMPTS=1` or `OTEL_LOG_TOOL_CONTENT=1`, prompts and tool inputs/outputs are written in clear text to these files, along with your account email: keep them out of shared or backed-up folders
  - For your own LLM calls, set `OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT=true` (where your SDK supports it) to see prompts and completions in the GenAI visualizer
 
 Observability roadmap:
