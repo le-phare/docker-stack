@@ -1,0 +1,60 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+        max_recv_msg_size_mib: 64
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+  transform/genai:
+    error_mode: ignore
+    trace_statements:
+      - context: span
+        conditions:
+          - attributes["gen_ai.system"] != nil and attributes["input_tokens"] != nil
+        statements:
+          - set(attributes["gen_ai.provider.name"], attributes["gen_ai.system"]) where attributes["gen_ai.provider.name"] == nil
+          - set(attributes["gen_ai.operation.name"], "chat") where attributes["gen_ai.operation.name"] == nil
+          - set(attributes["gen_ai.response.model"], attributes["model"]) where attributes["gen_ai.response.model"] == nil and attributes["model"] != nil
+          - set(attributes["gen_ai.usage.input_tokens"], Int(attributes["input_tokens"]) + Int(attributes["cache_read_tokens"]) + Int(attributes["cache_creation_tokens"])) where attributes["gen_ai.usage.input_tokens"] == nil and attributes["cache_read_tokens"] != nil and attributes["cache_creation_tokens"] != nil
+          - set(attributes["gen_ai.usage.input_tokens"], Int(attributes["input_tokens"])) where attributes["gen_ai.usage.input_tokens"] == nil
+          - set(attributes["gen_ai.usage.output_tokens"], Int(attributes["output_tokens"])) where attributes["gen_ai.usage.output_tokens"] == nil and attributes["output_tokens"] != nil
+          - set(attributes["gen_ai.usage.cache_read.input_tokens"], Int(attributes["cache_read_tokens"])) where attributes["gen_ai.usage.cache_read.input_tokens"] == nil and attributes["cache_read_tokens"] != nil
+          - set(attributes["gen_ai.usage.cache_creation.input_tokens"], Int(attributes["cache_creation_tokens"])) where attributes["gen_ai.usage.cache_creation.input_tokens"] == nil and attributes["cache_creation_tokens"] != nil
+
+exporters:
+  otlp_grpc/aspire:
+    endpoint: aspire-dashboard:18889
+    tls:
+      insecure: true
+  file/traces:
+    path: /telemetry/traces.jsonl
+    rotation: &rotation
+      max_megabytes: ${env:OTEL_TELEMETRY_MAX_MB}
+      max_days: ${env:OTEL_TELEMETRY_MAX_DAYS}
+      max_backups: ${env:OTEL_TELEMETRY_MAX_BACKUPS}
+      localtime: true
+  file/metrics:
+    path: /telemetry/metrics.jsonl
+    rotation: *rotation
+  file/logs:
+    path: /telemetry/logs.jsonl
+    rotation: *rotation
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [transform/genai, batch]
+      exporters: [otlp_grpc/aspire, file/traces]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp_grpc/aspire, file/metrics]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp_grpc/aspire, file/logs]
