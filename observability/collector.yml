@@ -15,9 +15,17 @@ services:
       - "127.0.0.1:${OTLP_GRPC_PORT:-4317}:4317"
       - "127.0.0.1:${OTLP_HTTP_PORT:-4318}:4318"
     volumes:
-      - ./observability/collector/config.yaml:/etc/otelcol-contrib/config.yaml:ro
-      - ${OTEL_TELEMETRY_DIR:-./observability/telemetry}:/telemetry
+      - type: bind
+        source: ./observability/collector/config.yaml
+        target: /etc/otelcol-contrib/config.yaml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${OTEL_TELEMETRY_DIR:-./observability/telemetry}
+        target: /telemetry
+        bind:
+          create_host_path: false
 
   aspire-dashboard:
     ports: !reset []
-
